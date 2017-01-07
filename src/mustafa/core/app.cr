@@ -1,3 +1,5 @@
+require "http"
+
 module Mustafa
   module Core
     ###

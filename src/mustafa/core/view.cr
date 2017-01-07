@@ -1,3 +1,6 @@
+require "ecr"
+require "ecr/macros"
+
 module Mustafa
   class View
     INSTANCE = View.new
