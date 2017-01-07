@@ -27,7 +27,7 @@ module Mustafa
       #
       ###
       def serve(port=8080)
-          server = HTTP::Server.new (port) do |context| 
+          server = HTTP::Server.new(Mustafa::Config::LOCALHOST_ADDRESS, port) do |context| 
               #@header = context.request.headers
               #@body = context.request.body
               @method = context.request.method
