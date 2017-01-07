@@ -1,0 +1,10 @@
+name: mustafa
+version: 0.1.0
+
+authors:
+  - Güven Cenan Güvenal <guvencenan@yahoo.com>
+
+
+crystal: 0.19.4
+
+license: MIT
