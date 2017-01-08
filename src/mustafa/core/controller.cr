@@ -3,11 +3,13 @@ module Mustafa
     getter :__actions
 
     property :out
+    property :params
 
     def initialize
       @__actions = {} of String => Proc(Nil)
 
       @out = Mustafa::Http::Response.new
+      @params = [] of String
     end
 
     ###

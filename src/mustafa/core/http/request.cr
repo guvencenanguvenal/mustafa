@@ -1,29 +1,26 @@
+require "http"
+
 module Mustafa
     module Http
-        class Request  
-            property output : String
-            property content_type : String
-            property content_length : Int32
-
-            def initialize
-                @output = ""
-                @content_type = "text/html"
-                @content_length = 1000
-            end
-
-            def initialize (output : String, content_type : String, content_length : Int32)
-                @output = output
-                @content_type = content_type
-                @content_length = content_length
-            end
-
-            def text (str : String)
-                @output = str
-            end
-
-            def html (str : String)
-                @output = str
-                @content_type = "text/html"
+        class Request
+            property method : String
+            property headers : HTTP::Headers
+            property body : IO?
+            property body_str : String
+            property version : String
+            property path : String
+            property query_string : String?
+            property query_params : HTTP::Params
+            
+            def initialize(request : HTTP::Request)
+                @method = request.method
+                @path    = request.path.to_s
+                @headers = request.headers
+                @body    = request.body
+                @body_str = ""
+                @version = request.version
+                @query_string = request.query
+                @query_params = request.query_params
             end
         end
     end

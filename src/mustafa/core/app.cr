@@ -1,5 +1,3 @@
-require "http"
-
 module Mustafa
   module Core
     ###
@@ -9,43 +7,30 @@ module Mustafa
     class App
             
       INSTANCE = App.new
-
-      getter :header
-      getter :body
-      getter :method
-      getter :path
-      getter :query
-
+      
       def initialize
-          @method = ""
-          @path = ""
-          @query = ""
+
       end
 
       ###
       # HTTP Connect methods
       #
       ###
-      def serve(port=8080)
-          server = HTTP::Server.new(Mustafa::Config::LOCALHOST_ADDRESS, port) do |context| 
-              #@header = context.request.headers
-              #@body = context.request.body
-              @method = context.request.method
-              puts @method
-              @path = context.request.path.to_s
-              puts @path
-              #@query = context.request.query
+      def serve(port)
+        server = HTTP::Server.new (port) do |context| 
+            request = Http::Request.new context.request
 
-              path_parse_array = Mustafa::Helper.route.path_split @path
+            Mustafa::Helper.route.set_query_params request.method.to_s, request.query_string.to_s
+            path_parse_array = Mustafa::Helper.route.path_split request.path
 
-              controller_obj = Mustafa::Helper.controller.load_controller path_parse_array[0]
-              Mustafa::Controller.run controller_obj, path_parse_array[1]
+            controller_obj = Mustafa::Helper.controller.load_controller path_parse_array[0]
+            Mustafa::Controller.run controller_obj, path_parse_array[1]
 
-              context.response.content_type = controller_obj.out.content_type
-              context.response.print controller_obj.out.output
-          end
+            context.response.content_type = controller_obj.out.content_type
+            context.response.print controller_obj.out.output
+        end
 
-          server.listen
+        server.listen
       end
     end
 
