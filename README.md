@@ -78,7 +78,7 @@ YourProject.cr
 require "mustafa"
 #And require your controller, view and model files
 
-module Pbg
+module Yourproject
   Mustafa.run
 end
 ```
