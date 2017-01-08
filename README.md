@@ -4,11 +4,11 @@ Mustafa is MVC Framework For Crystal Language
 
 # Getting Started :sunglasses:
 
-Add your shard.yml and install lib. Yes it's ready! Build your MVC project.
+Add your `shard.yml` and install lib. Yes it's ready! Build your MVC project.
 
 # Installation :star:
 
-Add this to your application's 'shards.yml'
+Add this to your application's `shards.yml`
 
 ```
 dependencies:
@@ -18,13 +18,13 @@ dependencies:
 ```
 
 # Route :rocket:
-```
-http://localhost/welcome
-```
+
+*http://localhost/welcome*
+
 call controller which names is Welcome
-```
-http://localhost/welcome/hello
-```
+
+*http://localhost/welcome/hello*
+
 call controller which names is Welcome and run action(method) which names is "hello"
 
 
