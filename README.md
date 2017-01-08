@@ -17,9 +17,7 @@ dependencies:
     branch: master
 ```
 
-# Mustafa's Attribute
-
-## Route :rocket:
+# Route :rocket:
 
 http://localhost/welcome
 
@@ -30,7 +28,7 @@ http://localhost/welcome/hello
 call controller which names is Welcome and run action(method) which names is "hello"
 
 
- ## Configuration :mag_right:
+# Configuration :mag_right:
 
 Configuration file is config.cr on src/mustafa/config/config.cr
 
