@@ -1,6 +1,7 @@
 require "./mustafa/*"
 require "./mustafa/core/*"
 require "./mustafa/config/*"
+require "./mustafa/library/*"
 require "./mustafa/core/helper/*"
 require "./mustafa/core/http/*"
 require "./mustafa/core/input/*"
