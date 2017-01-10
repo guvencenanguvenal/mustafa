@@ -29,6 +29,10 @@ module Mustafa
                 private def set_session(response, data)
                     response.set_cookie(@session_key, data.to_json)
                 end
+
+                private def delete_session
+                    response.delete_cookie(@session_key)
+                end
             end
         end
     end

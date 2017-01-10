@@ -10,7 +10,7 @@ module Mustafa
       def get_session_data : Hash(String, String)
         Library.session.session_data
       end
-     
+
     end
     
     def self.session
