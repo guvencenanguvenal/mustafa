@@ -44,9 +44,11 @@ LOCALHOST_ADDRESS = "0.0.0.0"
 
 ## Controller
 
+Controller name must be capitalized case (first letter is upper, other letters is lower)
+
 Welcomecontroller.cr
 ```
-class Welcomecontroller < Controller
+class Welcomecontroller < Core::Controller
     register Welcomecontroller
 
     action "index" do
@@ -62,7 +64,7 @@ View has a class and an ECR File
 
 Welcomeview.cr
 ```
-class Welcomeview < View
+class Welcomeview < Core::View
     init "Welcome.ecr", name
   end
 ```
@@ -73,7 +75,7 @@ Selam, <%= @name %>!
 
 ## Run, go go go
 
-YourProject.cr
+Yourproject.cr
 ```
 require "mustafa"
 #And require your controller, view and model files
