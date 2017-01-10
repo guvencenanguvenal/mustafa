@@ -3,6 +3,14 @@ module Mustafa
     class Route
       INSTANCE = Route.new
 
+      def set_query_params(method : String, query : String)
+        if method == "GET"
+          Input.get.set_with_query query
+        elsif method == "POST"
+          Input.post.set_with_query query
+        end
+      end
+
       def path_split(path : String) : Array
         path_parse_array = [] of String
 

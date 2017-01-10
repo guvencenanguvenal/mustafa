@@ -3,6 +3,18 @@ module Mustafa
     class Controller
       INSTANCE = Controller.new
 
+      def controller_name?(c_name : String) : Bool
+        if c_name.includes? '.'
+          return false
+        elsif c_name.includes? ','
+          return false
+        elsif c_name.includes? '/'
+          return false
+        end
+
+        return true
+      end
+
       def load_controller(controller_name = "#{Mustafa::Config::MODULE_NAME}::#{Mustafa::Config::DEFAULT_CONTROLLER}", method_name = "index") : Mustafa::Controller
         if Core.router.controller? controller_name
           controller_obj = Core.router.load_controller controller_name

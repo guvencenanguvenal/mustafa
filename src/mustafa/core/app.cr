@@ -17,12 +17,12 @@ module Mustafa
       #
       ###
       def serve(port)
-        handler = Http::Handler.new
-
         server = HTTP::Server.new Config::LOCALHOST_ADDRESS, port, [
           HTTP::ErrorHandler.new,
           HTTP::LogHandler.new,
-          handler,
+          Http::Session::Handler.new,
+          Http::Handler.new,
+          HTTP::StaticFileHandler.new("", false),
         ] 
         server.listen
       end
