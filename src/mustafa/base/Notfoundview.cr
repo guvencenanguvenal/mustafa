@@ -2,7 +2,7 @@ require "ecr"
 require "ecr/macros"
 
 module Mustafa
-  class Notfoundview < View
+  class Notfoundview < Core::View
     def initialize
 
     end

@@ -1,5 +1,5 @@
 module Mustafa
-  class Notfoundcontroller < Controller
+  class Notfoundcontroller < Core::Controller
     register Notfoundcontroller
 
     action "index" do

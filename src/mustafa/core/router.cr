@@ -11,14 +11,14 @@ module Mustafa
       getter :__controllers
 
       def initialize
-        @__controllers = {} of String => Mustafa::Controller
+        @__controllers = {} of String => Mustafa::Core::Controller
       end
 
       ###
       # Controller register and load methods
       # Last Edit : 05.01.2017
       ###
-      def register_controller (name : String, controller : Mustafa::Controller)
+      def register_controller (name : String, controller : Mustafa::Core::Controller)
           @__controllers[name] = controller
           puts "Controller is registed : #{name}"
       end
@@ -28,7 +28,7 @@ module Mustafa
       #
       # Mustafa::Core.route.load_controller "Welcomecontroller"
       ###
-      def load_controller (name : String) : Mustafa::Controller
+      def load_controller (name : String) : Mustafa::Core::Controller
         @__controllers[name]
       end
 
