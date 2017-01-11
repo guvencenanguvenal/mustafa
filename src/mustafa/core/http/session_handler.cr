@@ -11,11 +11,11 @@ module Mustafa
 
                 def call(context)
                     context.session = get_session(context.request.cookies)
-                    
+                    data = @encoder.hex_digest(context.session.to_json)
                     if next_handler = @next
                         next_handler.call(context)
                     end
-                    set_session(context.response, @encoder.hex_digest(context.session.to_json))
+                    set_session(context.response, context.session, data)
                 end
 
                 private def get_session(cookies) : Hash(String, String)
@@ -26,8 +26,10 @@ module Mustafa
                     end
                 end
 
-                private def set_session(response, data)
-                    response.set_cookie(@session_key, data)
+                private def set_session(response, session, data)
+                    data = session.to_json
+                    return if data == @encoder.hex_digest(data)
+                    response.set_cookie(@session_key, @encoder.encode(data))
                 end
 
                 private def delete_session
