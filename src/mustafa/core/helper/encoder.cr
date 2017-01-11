@@ -1,3 +1,7 @@
+require "openssl/hmac"
+require "base64"
+require "crypto/md5"
+
 module Mustafa
   module Helper
     class Encoder
