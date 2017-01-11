@@ -1,5 +1,3 @@
-require "crypto"
-
 module Mustafa
     module Library
         class Crypto
