@@ -6,28 +6,28 @@ module Mustafa
         module Session
             class Handler < HTTP::Handler
                 def initialize(@session_key = "session_cr", secret_key = "Mustafa")
-                    
+                    @encoder = Encoder.new(secret_key)
                 end
 
                 def call(context)
                     context.session = get_session(context.request.cookies)
-                    #library update edilecek
+                    
                     if next_handler = @next
                         next_handler.call(context)
                     end
-                    set_session(context.response, context.session)
+                    set_session(context.response, @encoder.hex_digest(context.session.to_json))
                 end
 
                 private def get_session(cookies) : Hash(String, String)
                     if cookie = cookies[@session_key]?
-                        Hash(String, String).from_json(cookie.value)
+                        Hash(String, String).from_json(@encoder.decode(cookie.value))
                     else
                         Hash(String, String).new
                     end
                 end
 
                 private def set_session(response, data)
-                    response.set_cookie(@session_key, data.to_json)
+                    response.set_cookie(@session_key, data)
                 end
 
                 private def delete_session

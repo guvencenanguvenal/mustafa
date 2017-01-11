@@ -1,6 +1,6 @@
 module Mustafa
   class Notfoundcontroller < Core::Controller
-    register Notfoundcontroller
+    init Notfoundcontroller
 
     action "index" do
       load_ecr Notfoundview, "Welcomecontroller"

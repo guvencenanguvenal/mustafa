@@ -38,11 +38,11 @@ module Mustafa
             #   this macro registed controller on system
             #  
             #   class WelcomeController < Controller
-            #       register WelcomeController
+            #       init WelcomeController
             #       ...
             #   end
             ###
-            macro register(controller_name)
+            macro init(controller_name)
                 @@this = {{controller_name.id}}.new
                 Core.router.register_controller "#{{{controller_name.id}}}", @@this
             end

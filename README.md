@@ -49,12 +49,11 @@ Controller name must be capitalized case (first letter is upper, other letters i
 Welcomecontroller.cr
 ```
 class Welcomecontroller < Core::Controller
-    register Welcomecontroller
+    init Welcomecontroller
 
     action "index" do
       load_ecr Welcomeview, "Mustafa'ya Hosgeldin"
     end
-
  end
 ```
 
@@ -65,8 +64,8 @@ View has a class and an ECR File
 Welcomeview.cr
 ```
 class Welcomeview < Core::View
-    init "Welcome.ecr", name
-  end
+	init "Welcome.ecr", name
+end
 ```
 Welcome.ecr
 ```
@@ -84,4 +83,9 @@ module Yourproject
   Mustafa.run
 end
 ```
+
+#Thanks
+
+Thanks [porras/session](https://github.com/porras/session) for session and encoder class
+
 

@@ -8,3 +8,7 @@ authors:
 crystal: 0.19.4
 
 license: MIT
+
+dependencies:
+  db:
+    github: crystal-lang/crystal-db
