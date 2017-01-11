@@ -6,7 +6,7 @@ module Mustafa
         module Session
             class Handler < HTTP::Handler
                 def initialize(@session_key = "session_cr", secret_key = "Mustafa")
-                    @encoder = Encoder.new(secret_key)
+                    @encoder = Helper::Encoder.new(secret_key)
                 end
 
                 def call(context)
