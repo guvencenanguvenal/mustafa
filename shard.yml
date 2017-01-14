@@ -12,3 +12,5 @@ license: MIT
 dependencies:
   db:
     github: crystal-lang/crystal-db
+  smtp:
+    github: raydf/smtp.cr
