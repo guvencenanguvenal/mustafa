@@ -32,11 +32,12 @@ call controller which name is Welcome and run action(method) which name is "hell
 *http://localhost/welcome/hello/param1/param2*
 
 call controller which name is Welcome and run action(method) which name is "hello" and.. 
-Note: params is not get or post
+
 ```
 Input.params.value 0 => "param1"
 Input.params.value 1 => "param2"
 ```
+>**Note:** params is not get or post
 
 # Configuration :mag_right:
 
@@ -96,7 +97,8 @@ end
 
 #Thanks
 
-Thanks [porras/session](https://github.com/porras/session) for session and encoder class
-Thanks [logomakr.com](http://logomakr.com) for logo
+Thanks [porras/session](https://github.com/porras/session) for session and encoder class.
+
+Thanks [logomakr.com](http://logomakr.com) for logo.
 
 
