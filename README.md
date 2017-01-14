@@ -23,12 +23,20 @@ dependencies:
 
 *http://localhost/welcome*
 
-call controller which names is Welcome
+call controller which name is Welcome
 
 *http://localhost/welcome/hello*
 
-call controller which names is Welcome and run action(method) which names is "hello"
+call controller which name is Welcome and run action(method) which name is "hello"
 
+*http://localhost/welcome/hello/param1/param2*
+
+call controller which name is Welcome and run action(method) which name is "hello" and.. 
+Note: params is not get or post
+```
+Input.params.value 0 => "param1"
+Input.params.value 1 => "param2"
+```
 
 # Configuration :mag_right:
 
@@ -89,5 +97,6 @@ end
 #Thanks
 
 Thanks [porras/session](https://github.com/porras/session) for session and encoder class
+Thanks [logomakr.com](http://logomakr.com) for logo
 
 
