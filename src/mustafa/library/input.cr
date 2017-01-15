@@ -19,6 +19,10 @@ module Mustafa
             def post_array(key : String) : Array(String)
                 Input.post.value_array(key)
             end
+
+            def params(index : Int32) : String
+                Input.params.value index
+            end
         end
 
         def self.input

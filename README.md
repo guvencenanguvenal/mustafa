@@ -34,8 +34,8 @@ call controller which name is Welcome and run action(method) which name is "hell
 call controller which name is Welcome and run action(method) which name is "hello" and.. 
 
 ```
-Input.params.value 0 => "param1"
-Input.params.value 1 => "param2"
+Library.input.params 0 => "param1"
+Library.input.params 1 => "param2"
 ```
 >**Note:** params is not get or post
 
