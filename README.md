@@ -53,6 +53,19 @@ LOCALHOST_ADDRESS = "0.0.0.0"
 ```
 # Super Simple :checkered_flag:
 
+## Model
+
+Model name must be capitalized case (first letter is upper, other letters is lower)
+
+Welcomemodel.cr
+```
+class Welcomemodel < Core::Model
+  def hello
+    puts "hello"
+  end
+end
+```
+
 ## Controller
 
 Controller name must be capitalized case (first letter is upper, other letters is lower)
@@ -60,12 +73,15 @@ Controller name must be capitalized case (first letter is upper, other letters i
 Welcomecontroller.cr
 ```
 class Welcomecontroller < Core::Controller
-    init Welcomecontroller
+  init Welcomecontroller
 
-    action "index" do
-      load_ecr Welcomeview, "Mustafa'ya Hosgeldin"
-    end
- end
+  load_model "Welcomemodel"
+
+  action "index" do
+    welcomemodel.hello  #put terminal hello before load view
+    load_ecr Welcomeview, "Mustafa'ya Hosgeldin"
+  end
+end
 ```
 
 ## View
@@ -75,7 +91,7 @@ View has a class and an ECR File
 Welcomeview.cr
 ```
 class Welcomeview < Core::View
-	init "Welcome.ecr", name
+  init "Welcome.ecr", name
 end
 ```
 Welcome.ecr
