@@ -71,6 +71,18 @@ module Mustafa
             end
 
             ###
+            # this macro load your model
+            # 
+            # Example for use;
+            # load_model "Welcomemodel"
+            #
+            # welcomemodel.yourmodelmethod
+            ###
+            macro load_model(model_name)
+                {{model_name.downcase.id}} = {{model_name.id}}.new
+            end
+
+            ###
             # this macro load ecr with parameters
             # load_ecr WelcomeView, "param1", "param2", "param3"
             #
