@@ -59,11 +59,11 @@ module Mustafa
                     "<form action=\"#{action}\" method=\"#{method}\" >"
                 end
 
-                def form_input(input_type = "input", id = "mustafa_input", label_text = "Label", placeholder = "Placeholder")
+                def self.form_input(input_type = "input", id = "mustafa_input", label_text = "Label", placeholder = "Placeholder")
                     "<div class=\"form-group\"><label for=\"#{id}\">#{label_text}</label><input type=\"#{input_type}\" class=\"form-control\" id=\"#{id}\" placeholder=\"#{placeholder}\"></div>"
                 end
 
-                def form_button(text = "Submit")
+                def self.form_button(text = "Submit")
                     "<button type=\"submit\" class=\"btn btn-primary\">#{text}</button>"
                 end
 
