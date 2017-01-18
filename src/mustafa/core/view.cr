@@ -16,7 +16,7 @@ module Mustafa
 
                 end
 
-                ECR.def_to_s "./#{Mustafa::Config::VIEW_PATH.id}/#{{{filename}}}"
+                ECR.def_to_s "./#{Config::VIEW_PATH.id}/#{{{filename}}}"
             end
 
             ###
@@ -30,7 +30,7 @@ module Mustafa
                             @bs_install_js = "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\" integrity=\"sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa\" crossorigin=\"anonymous\"></script>")
                 end
 
-                ECR.def_to_s "./#{Mustafa::Config::VIEW_PATH.id}/#{{{filename}}}"
+                ECR.def_to_s "./#{Config::VIEW_PATH.id}/#{{{filename}}}"
             end
 
             ###
