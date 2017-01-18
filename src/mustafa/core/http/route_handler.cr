@@ -7,11 +7,11 @@ module Mustafa
                 request = Http::Request.new context.request
                 response = Http::Response.new
 
-                Helper.route.set_query_params request.method.to_s, request.query_string.to_s
-                path_parse_array = Helper.route.path_split request.path
-                Helper.route.set_url_params request.path
+                if Helper.controller.controller_name? request.path
+                    Helper.route.set_query_params request.method.to_s, request.query_string.to_s
+                    path_parse_array = Helper.route.path_split request.path
+                    Helper.route.set_url_params request.path
 
-                if Helper.controller.controller_name? path_parse_array[0]
                     Helper.session.set_session_data context.session
 
                     controller_obj = Helper.controller.load_controller path_parse_array[0]

@@ -3,9 +3,8 @@ require "ecr/macros"
 
 module Mustafa
     module Core
-        class View
-            INSTANCE = View.new
-
+        abstract class View
+            
             ###
             # This macro is for initialize ECR View class
             #
@@ -72,14 +71,6 @@ module Mustafa
                 end
             end
 
-        end
-
-        def self.view
-            yield View::INSTANCE
-        end
-
-        def self.view
-            View::INSTANCE
         end
     end
 end
