@@ -1,11 +1,7 @@
 module Mustafa
   module Core
     abstract class Model
-
-      def initialize
-        
-      end
-      
+      #this class for model
     end
   end
 end
