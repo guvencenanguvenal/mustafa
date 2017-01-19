@@ -1,8 +1,8 @@
 module Mustafa
   module Core
-    abstract class Usercontrol
+    abstract class Usercomponent
       
-      macro init_control(name, content)
+      macro init_component(name, content)
         def self.{name.id}
           {content}
         end
