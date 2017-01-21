@@ -92,11 +92,43 @@ Welcomeview.cr
 ```
 class Welcomeview < Core::View
   init "Welcome.ecr", name
+  
+  include MustafaControl
+  
+  load_custom_control "Panel"
+  
+  def load
+     @panel.panel_type = "success"
+  end
+  
 end
 ```
 Welcome.ecr
 ```
 Selam, <%= @name %>!
+
+<%= @panel.show %> #panel render with default values
+<%= @panel.show panel_type: "danger", title: "Panel Title", content: "it is content!" #panel render with initialize values 
+```
+
+## Control
+
+You can create your custom control or use Mustafa's controls with `include MustafaControl` command.
+
+Welcomeview.cr
+```
+module Yourcustomcontrols
+  class Controlname < Core::Control
+    init_property example
+    init_property type
+    
+    init " example: \"Default Value\", type: \"submit\" "
+
+    def show(**properties)
+      "<button type=\"control_property("type")\">#{control_property("example")}</button>"
+    end
+  end
+end
 ```
 
 ## Run, go go go
