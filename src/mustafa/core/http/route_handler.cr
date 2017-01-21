@@ -15,7 +15,7 @@ module Mustafa
                     Helper.session.set_session_data context.session
 
                     controller_obj = Helper.controller.load_controller path_parse_array[0]
-                    Core::Controller.run controller_obj, path_parse_array[1]
+                    controller_obj.run_action path_parse_array[1]
                                     
                     context.session = Helper.session.get_session_data
                 

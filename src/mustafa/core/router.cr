@@ -8,15 +8,14 @@ module Mustafa
     class Router
       INSTANCE = Router.new
 
-      getter :__controllers
-
       def initialize
         @__controllers = {} of String => Mustafa::Core::Controller
       end
 
       ###
       # Controller register and load methods
-      # Last Edit : 05.01.2017
+      # 
+      # this method use polymorphysm
       ###
       def register_controller (name : String, controller : Mustafa::Core::Controller)
           @__controllers[name] = controller

@@ -5,12 +5,14 @@ module Mustafa
 
             property :out
             property :params
+            
+            @@__name = ""
 
             def initialize
-            @__actions = {} of String => Proc(Nil)
+                @__actions = {} of String => Proc(Nil)
 
-            @out = Http::Response.new
-            @params = [] of String
+                @out = Http::Response.new
+                @params = [] of String
             end
 
             ###
@@ -26,7 +28,7 @@ module Mustafa
             #
             ###
             macro action (name, &block)
-                @@this.__action__({{name}}) {{block}}
+                Core.router.load_controller(@@__name).__action__({{name}}) {{block}}
             end
 
             def __action__(name : String, &block)
@@ -43,8 +45,8 @@ module Mustafa
             #   end
             ###
             macro init(controller_name)
-                @@this = {{controller_name.id}}.new
-                Core.router.register_controller "#{{{controller_name.id}}}", @@this
+                @@__name = "#{{{controller_name}}}"
+                Core.router.register_controller "#{{{controller_name.id}}}", {{controller_name.id}}.new
             end
 
             ###
@@ -55,11 +57,7 @@ module Mustafa
             # Example for use;
             # Mustafa::Controller.run Welcomecontroller, "index"
             ###
-            macro run (controller, name)
-                {{controller}}.__run_action__({{name}})
-            end
-
-            def __run_action__(method_name : String)
+            def run_action(method_name : String)
                 if @__actions.has_key?(method_name)
                     if callback = @__actions[method_name]
                         callback.call
@@ -92,7 +90,11 @@ module Mustafa
             # end
             ###
             macro load_ecr(ecr_classname, *variables)
-                @@this.out.output = {{ecr_classname}}.new({% for variable, index in variables %} {{variable}}, {% end %}).to_s
+                __loading_view = {{ecr_classname}}.new({% for variable, index in variables %} {{variable}}, {% end %})
+
+                __loading_view.load
+
+                Core.router.load_controller(@@__name).out.output = __loading_view.to_s
             end
 
             ###

@@ -30,7 +30,7 @@ module Mustafa
           if controller_obj == Nil
             puts "Controller is not found : #{controller_name}"
           else
-            Mustafa::Core::Controller.run controller_obj, method_name
+            controller_obj.run_action method_name
           end
 
           controller_obj
@@ -40,7 +40,7 @@ module Mustafa
           if controller_obj == Nil
             puts "Controller is not found : #{controller_name}"
           else
-            Mustafa::Core::Controller.run controller_obj, method_name
+            controller_obj.run_action method_name
           end
 
           controller_obj

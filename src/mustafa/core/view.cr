@@ -6,6 +6,12 @@ module Mustafa
         abstract class View
             
             ###
+            # this method is abstract. it use for initialize view s values
+            #
+            ###
+            abstract def load
+
+            ###
             # This macro is for initialize ECR View class
             #
             # init "Welcomeview.ecr", param1, param2 ...
@@ -33,44 +39,13 @@ module Mustafa
             end
 
             ###
-            # this Mustafa UserControl class powered by Bootstrap!
-            # 
-            # support basic implementation for bootstrap
+            # this macro load component for view
+            #
+            #
             ###
-            class Mustafa
-                def self.panel(panel_type = "primary", title = "Title", content = "Content")
-                    "<div class=\"panel panel-#{panel_type}\"><div class=\"panel-heading\">#{title}</div><div class=\"panel-body\">#{content}</div></div>"
-                end
-
-                def self.alert(alert_type = "primary", text = "Alert!")
-                    "<div class=\"alert alert-#{alert_type}\" role=\"alert\">#{text}</div>"
-                end
-
-                def self.badge(text = "Text", badge_text="1", lbl_type = "primary")
-                    "<button class=\"btn btn-#{lbl_type}\" type=\"button\">#{text} <span class=\"badge\">#{badge_text}</span></button>"
-                end
-
-                def self.button(value = "Text", enabled = "true")
-                    "<button type=\"button\" class=\"btn btn-default\">#{value}</button>"
-                end
-
-                def self.form_open(action = "/", method = "GET")
-                    "<form action=\"#{action}\" method=\"#{method}\" >"
-                end
-
-                def self.form_input(input_type = "input", id = "mustafa_input", label_text = "Label", placeholder = "Placeholder")
-                    "<div class=\"form-group\"><label for=\"#{id}\">#{label_text}</label><input type=\"#{input_type}\" class=\"form-control\" id=\"#{id}\" placeholder=\"#{placeholder}\"></div>"
-                end
-
-                def self.form_button(text = "Submit")
-                    "<button type=\"submit\" class=\"btn btn-primary\">#{text}</button>"
-                end
-
-                def self.form_close
-                    "</form>"
-                end
+            macro load_component(component_name)
+                property {{component_name.downcase.id}} = {{component_name.id}}.new
             end
-
         end
     end
 end
