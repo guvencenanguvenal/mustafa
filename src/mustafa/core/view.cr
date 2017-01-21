@@ -43,8 +43,8 @@ module Mustafa
             #
             #
             ###
-            macro load_component(component_name)
-                property {{component_name.downcase.id}} = {{component_name.id}}.new
+            macro load_custom_control(control_name)
+                property {{control_name.downcase.id}} = {{control_name.id}}.new
             end
         end
     end
