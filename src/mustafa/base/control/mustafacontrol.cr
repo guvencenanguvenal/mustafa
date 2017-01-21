@@ -4,7 +4,7 @@
 # support basic implementation for bootstrap
 ###
 module MustafaControl
-    
+    include Mustafa
     ###
     # Bootstrap Panel
     ###

@@ -5,9 +5,9 @@ require "./mustafa/library/*"
 require "./mustafa/core/helper/*"
 require "./mustafa/core/http/*"
 require "./mustafa/core/input/*"
-require "./mustafa/base/controller/*"
-require "./mustafa/base/model/*"
-require "./mustafa/base/view/*"
+#require "./mustafa/base/controller/*"
+#require "./mustafa/base/model/*"
+#require "./mustafa/base/view/*"
 require "./mustafa/base/control/*"
 
 include Mustafa
