@@ -82,14 +82,14 @@ module Mustafa
 
             ###
             # this macro load ecr with parameters
-            # load_ecr WelcomeView, "param1", "param2", "param3"
+            # load_view WelcomeView, "param1", "param2", "param3"
             #
             # this example for ECR View has 3 parameters
             # def initialize(@p1 : String, @p2 : String, @p3 : String)
             #
             # end
             ###
-            macro load_ecr(ecr_classname, *variables)
+            macro load_view(ecr_classname, *variables)
                 __loading_view = {{ecr_classname}}.new({% for variable, index in variables %} {{variable}}, {% end %})
 
                 __loading_view.load

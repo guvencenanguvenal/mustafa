@@ -79,7 +79,7 @@ class Welcomecontroller < Core::Controller
 
   action "index" do
     welcomemodel.hello  #put terminal hello before load view
-    load_ecr Welcomeview, "Mustafa'ya Hosgeldin"
+    load_view Welcomeview, "Mustafa'ya Hosgeldin"
   end
 end
 ```
