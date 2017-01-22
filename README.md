@@ -113,7 +113,7 @@ Selam, <%= @name %>!
 
 ## Control
 
-You can create your custom control or use Mustafa's controls with `include MustafaControl` command.
+You can create your custom control or can use Mustafa's controls with `include MustafaControl` command.
 
 Welcomeview.cr
 ```
