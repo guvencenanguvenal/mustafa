@@ -1,15 +1,15 @@
 module Mustafa
     module Core
         abstract class Controller
-            getter :__actions
+            property :__actions
+            property :__name
 
             property :out
             property :params
-            
-            @@__name = ""
 
             def initialize
                 @__actions = {} of String => Proc(Nil)
+                @__name = ""
 
                 @out = Http::Response.new
                 @params = [] of String
@@ -28,12 +28,7 @@ module Mustafa
             #
             ###
             macro action (name, &block)
-                Core.router.load_controller(@@__name).__action__({{name}}) {{block}}
-            end
-
-            def __action__(name : String, &block)
-                @__actions[name] = block
-                puts "Action is registed. #{name}"
+                Helper.controller.load_action INSTANCE, {{name}}, {{block}}
             end
 
             ###
@@ -44,9 +39,10 @@ module Mustafa
             #       ...
             #   end
             ###
-            macro init(controller_name)
-                @@__name = "#{{{controller_name}}}"
-                Core.router.register_controller "#{{{controller_name.id}}}", {{controller_name.id}}.new
+           macro init(controller_name)
+                INSTANCE = {{controller_name.id}}.new
+                INSTANCE.__name = "#{{{controller_name}}}"
+                Core.router.register_controller INSTANCE.__name, INSTANCE
             end
 
             ###
@@ -89,12 +85,11 @@ module Mustafa
             #
             # end
             ###
-            macro load_view(ecr_classname, *variables)
+            macro load_ecr(ecr_classname, *variables)
                 __loading_view = {{ecr_classname}}.new({% for variable, index in variables %} {{variable}}, {% end %})
-
                 __loading_view.load
 
-                Core.router.load_controller(@@__name).out.output = __loading_view.to_s
+                INSTANCE.out.output = __loading_view.to_s
             end
 
             ###

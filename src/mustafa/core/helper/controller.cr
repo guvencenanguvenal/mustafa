@@ -3,6 +3,11 @@ module Mustafa
     class Controller
       INSTANCE = Controller.new
 
+      def load_action(cont_obj : Core::Controller, action_name : String, &block)
+        cont_obj.__actions[action_name] = block
+        puts "Action is registed. #{action_name}"
+      end
+
       def controller_name?(path : String) : Bool
         path_parse_array = [] of String
 
