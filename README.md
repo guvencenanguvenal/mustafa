@@ -1,4 +1,4 @@
-<img src="https://cloud.githubusercontent.com/assets/11555504/21957574/e89ce81e-daa1-11e6-9bde-8b505ac4a5d7.png" width="50" height="100" />
+<img src="https://cloud.githubusercontent.com/assets/11555504/21957574/e89ce81e-daa1-11e6-9bde-8b505ac4a5d7.png" width="50" height="75" />
 
 # mustafa
 
