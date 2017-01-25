@@ -1,8 +1,8 @@
 module Mustafa
     module Core
         abstract class Controller
-            property :__actions
-            property :__name
+            getter :__actions
+            getter :__name
 
             property :out
             property :params
@@ -28,7 +28,7 @@ module Mustafa
             #
             ###
             macro action (name, &block)
-                Helper.controller.load_action INSTANCE, {{name}}, {{block}}
+                INSTANCE.__actions[{{name}}] = {{block}}
             end
 
             ###
