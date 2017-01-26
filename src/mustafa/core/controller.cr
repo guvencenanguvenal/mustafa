@@ -16,6 +16,15 @@ module Mustafa
             end
 
             ###
+            # helper for development
+            ###
+            protected def __name=(val : String)
+                if @__name == ""
+                    @__name = val
+                end
+            end
+
+            ###
             # this macro use for controller actions defined
             #
             #  class WelcomeController < Controller
@@ -28,7 +37,16 @@ module Mustafa
             #
             ###
             macro action (name, &block)
-                INSTANCE.__actions[{{name}}] = {{block}}
+                INSTANCE.__action__({{name}}) {{block}}
+            end
+
+            protected def __action__(name : String, &block)
+                if !@__actions.has_key?(name)
+                    @__actions[name] = block
+                    puts "Action is registed. #{name}"
+                else
+                    puts "Action is already exist."
+                end
             end
 
             ###
