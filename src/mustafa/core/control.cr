@@ -3,13 +3,13 @@ module Mustafa
     abstract class Control
 
       ###
-      #
-      #
+      # This method is helper to show your custom control
+      # 
       ###
       abstract def show(**properties)      
 
       ###
-      #
+      # initialize your custom control with properties
       #
       ##
       macro init(properties)
@@ -17,7 +17,7 @@ module Mustafa
       end
 
       ###
-      #
+      # initial your control's properties
       #
       ###
       macro init_property(name)
@@ -25,7 +25,7 @@ module Mustafa
       end
 
       ###
-      #
+      # this macro is to use your properties on your custom control
       #
       ###
       macro control_property(name)
