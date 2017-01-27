@@ -1,24 +1,28 @@
-## Welcome Visual Studio Code snippets for Mustafa MVC
+# Visual Studio Code snippets for Mustafa MVC
 
-#Controller
+###Controller
 
 `init controller`
 
 this snippet is to create controller class template.
 
-#View
+`load_view`
+
+`load_model`
+
+###View
 
 `init view`
 
 this snippet is to create view class template.
 
-#Model
+###Model
 
 `init model`
 
 this snippet is to create model class template.
 
-#Control
+###Control
 
 `init control`
 
