@@ -9,6 +9,7 @@ require "./mustafa/core/input/*"
 #require "./mustafa/base/model/*"
 #require "./mustafa/base/view/*"
 require "./mustafa/base/control/*"
+require "./mustafa/classextension/*"
 
 include Mustafa
 

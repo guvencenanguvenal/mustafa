@@ -45,6 +45,7 @@ module Mustafa
                     @__actions[name] = block
                     puts "Action is registed. #{name}"
                 else
+                    Library.log.add("Action is already exist.")
                     puts "Action is already exist."
                 end
             end
@@ -77,6 +78,7 @@ module Mustafa
                         callback.call
                     end
                 else
+                    Library.log.add("There is no action : #{method_name}")
                     puts "There is no action : #{method_name}"
                     #show_404
                 end
@@ -108,6 +110,20 @@ module Mustafa
                 __loading_view.load
 
                 INSTANCE.out.output = __loading_view.to_s
+            end
+
+            ###
+            # for init simple view page
+            # this view is non-parametric
+            ###
+            macro init_base_view(name, filename)
+                class {{name}} < Core::View
+                    ECR.def_to_s {{filename}}
+
+                    def load
+
+                    end
+                end
             end
 
             ###
