@@ -6,6 +6,8 @@ Mustafa is MVC Framework For Crystal Language
 
 # Getting Started :sunglasses:
 
+Download [Visual Studio Code](https://code.visualstudio.com/download) and add [Crystal](https://github.com/g3ortega/vscode-crystal) extension for faster coding with snippets.
+
 Add your `shard.yml` and install lib. Yes it's ready! Build your MVC project.
 
 # Installation :star:
