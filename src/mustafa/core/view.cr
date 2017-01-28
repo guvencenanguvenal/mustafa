@@ -25,6 +25,19 @@ module Mustafa
             end
 
             ###
+            # this macro create base view class
+            #
+            ###
+            macro init_base_view(name, filename)
+                class {{name}} < Core::View
+                    def load 
+                    end
+
+                    ECR.def_to_s {{filename}}
+                end
+            end
+
+            ###
             # this macro is for initialize ECR View class with bootstrap template
             #
             # init "Welcomeview.ecr", param1, param2 ...

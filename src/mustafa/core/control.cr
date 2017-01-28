@@ -7,6 +7,12 @@ module Mustafa
       # 
       ###
       abstract def show(**properties)      
+      ###
+      macro show(html)
+        def show(**properties)
+          {{html}}
+        end
+      end
 
       ###
       # initialize your custom control with properties

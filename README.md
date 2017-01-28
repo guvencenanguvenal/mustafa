@@ -128,9 +128,8 @@ module Yourcustomcontrols
     
     init " example: \"Default Value\", type: \"submit\" "
 
-    def show(**properties)
-      "<button type=\"#{control_property("type")}\">#{control_property("example")}</button>"
-    end
+    show "<button type=\"#{control_property("type")}\">#{control_property("example")}</button>"
+    
   end
 end
 ```
