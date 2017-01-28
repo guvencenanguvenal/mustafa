@@ -10,6 +10,8 @@ Download [Visual Studio Code](https://code.visualstudio.com/download) and add [C
 
 Add your `shard.yml` and install lib. Yes it's ready! Build your MVC project.
 
+For more information, you can see [Mustafa Wiki](https://github.com/guvencenanguvenal/mustafa/wiki)
+
 # Installation :star:
 
 Add this to your application's `shards.yml`
