@@ -4,7 +4,7 @@ module Mustafa
     module Library
         class Database
 
-            @@db = Library::DatabaseLib::Dummy.new.as(Core::DB)
+            @@db = Library::DatabaseLibrary::Dummy.new.as(Core::DB)
 
             ###
             # open connection method
@@ -12,7 +12,7 @@ module Mustafa
             # Library::Database.open  or  Library::Database.open("localhost", "username", "password", "schemaname")
             ###
             def self.open(host = "localhost", user = "root", pass = "", schema = "localhost")
-                @@db = Library::DatabaseLib::Mysql.new(host, user, pass, schema)
+                @@db = Library::DatabaseLibrary::Mysql.new(host, user, pass, schema)
             end
 
             ###
