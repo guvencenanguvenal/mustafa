@@ -1,27 +1,38 @@
 module Mustafa
     module Core
         abstract class Controller
+            ###
+            # only getter property
+            ###
             getter :__actions
             getter :__name
 
+            ###
+            # getter and setter property
+            ###
             property :out
             property :params
 
-            def initialize
-                @__actions = {} of String => Proc(Nil)
-                @__name = ""
+            ###
+            # controller is as a service
+            ###
+            @__is_service : Bool
 
+            def initialize(name : String, is_service = false)
+                @__actions = {} of String => Proc(Nil)
+                
                 @out = Http::Response.new
                 @params = [] of String
+
+                @__name = name
+                @__is_service = is_service
             end
 
             ###
-            # helper for development
+            # controller is as a service
             ###
-            protected def __name=(val : String)
-                if @__name == ""
-                    @__name = val
-                end
+            def service? : Bool
+                return @__is_service
             end
 
             ###
@@ -59,8 +70,24 @@ module Mustafa
             #   end
             ###
            macro init(controller_name)
-                INSTANCE = {{controller_name.id}}.new
-                INSTANCE.__name = "#{{{controller_name}}}"
+                def initialize(name : String, is_service = false)
+                    super(name, is_service)
+                end
+
+                INSTANCE = {{controller_name.id}}.new("#{{{controller_name}}}")
+                Core.router.register_controller INSTANCE.__name, INSTANCE
+            end
+
+            ###
+            #
+            #
+            ###
+            macro init_as_a_service(controller_name)
+                def initialize(name : String, is_service : Bool)
+                    super(name, is_service)
+                end
+
+                INSTANCE = {{controller_name.id}}.new("#{{{controller_name}}}", true)
                 Core.router.register_controller INSTANCE.__name, INSTANCE
             end
 
@@ -81,6 +108,20 @@ module Mustafa
                     Library.log.add("There is no action : #{method_name}")
                     puts "There is no action : #{method_name}"
                     #show_404
+                end
+            end
+
+            ###
+            # for init simple view page
+            # this view is non-parametric
+            ###
+            macro init_base_view(name, filename)
+                class {{name}} < Core::View
+                    ECR.def_to_s {{filename}}
+
+                    def load
+
+                    end
                 end
             end
 
@@ -110,20 +151,6 @@ module Mustafa
                 __loading_view.load
 
                 INSTANCE.out.output = __loading_view.to_s
-            end
-
-            ###
-            # for init simple view page
-            # this view is non-parametric
-            ###
-            macro init_base_view(name, filename)
-                class {{name}} < Core::View
-                    ECR.def_to_s {{filename}}
-
-                    def load
-
-                    end
-                end
             end
 
             ###

@@ -24,7 +24,19 @@ module Mustafa
                 time = Time.now
                 file_name = "#{time.year}-#{time.month}-#{time.day}|#{time.hour}-#{time.minute}.log"
 
-                File.write(type == LogType::Application.value ? "#{Config::LOG_PATH}/#{file_name}" : "#{Config::SYSTEM_LOG_PATH}/#{file_name}", log_val)
+                File.write(type == LogType::Application.value ? "#{Config::LOG_PATH}/#{file_name}" : "#{Config::SYSTEM_LOG_PATH}/#{file_name}", "Error: #{log_val}\n")
+            end
+
+            def clear_system_log
+                File.delete(Config::SYSTEM_LOG_PATH)
+                rescue ex : Errno 
+                    INSTANCE.log("System Error : #{ex.message}", LogType::System.value)
+            end
+
+            def clear
+                File.delete(Config::LOG_PATH)
+                rescue ex : Errno 
+                    INSTANCE.log("Application Error : #{ex.message}")
             end
         end
 
