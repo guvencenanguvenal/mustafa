@@ -14,9 +14,22 @@ module Mustafa
             ###
             # This macro is for initialize ECR View class
             #
-            # init "Welcomeview.ecr", param1, param2 ...
+            # init "Welcomeview.ecr", param1 : String, param2 : Array(String) ...
             ###
             macro init(filename, *variables)
+                def initialize ({% for variable, index in variables %} @{{variable}}, {% end %})
+
+                end
+
+                ECR.def_to_s "./#{Config::VIEW_PATH.id}/#{{{filename}}}"
+            end
+
+            ###
+            # This macro is for initialize ECR View class
+            #
+            # init "Welcomeview.ecr", param1, param2 ...
+            ###
+            macro init_with_string_params(filename, *variables)
                 def initialize ({% for variable, index in variables %} @{{variable}} : String, {% end %})
 
                 end

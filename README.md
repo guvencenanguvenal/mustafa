@@ -95,7 +95,7 @@ View has a class and an ECR File
 Welcomeview.cr
 ```
 class Welcomeview < Core::View
-  init "Welcome.ecr", name
+  init "Welcome.ecr", name : String
   
   include MustafaControl
   
