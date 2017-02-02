@@ -1,18 +1,14 @@
-require "mysql"
+require "sqlite3"
 
 module Mustafa
     module Library
         module DatabaseType
-            class Mysql < Core::DB
+            class Sqlite < Core::DB
 
                 @db : DB::Database
 
-                def initialize(connection_string : String)
-                    @db = DB.open connection_string
-                end
-
-                def initialize(host = "localhost", user = "root", pass = "", schema = "localhost")
-                    @db = DB.open "mysql://#{user}@#{host}/#{schema}"
+                def initialize(connetion_string = "sqlite3://./data.db")
+                    @db = DB.open connetion_string
                 end
 
                 def query(query_string : String) : Array(Hash(String, String))

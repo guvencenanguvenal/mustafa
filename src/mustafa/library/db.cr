@@ -4,15 +4,17 @@ module Mustafa
     module Library
         class Database
 
-            @@db = Library::DatabaseLibrary::Dummy.new.as(Core::DB)
+            @@db = Library::DatabaseType::Dummy.new.as(Core::DB)
 
             ###
             # open connection method
             #
-            # Library::Database.open  or  Library::Database.open("localhost", "username", "password", "schemaname")
+            # Library::Database.open  or  Library::Database.open("mysql://#{user}@#{host}/#{schema}", Library::DatabaseType::Mysql)
             ###
-            def self.open(host = "localhost", user = "root", pass = "", schema = "localhost")
-                @@db = Library::DatabaseLibrary::Mysql.new(host, user, pass, schema)
+            def self.open(connection_string = "mysql://root@localhost/localhost", db_class = Library::DatabaseType::Mysql)
+                @@db = db_class.new(connection_string).as(Core::DB)
+                rescue DB::ConnectionRefused
+                    Library.log.add("Database is not conneting : DB Type : #{db_class}", LogType::System.value)
             end
 
             ###

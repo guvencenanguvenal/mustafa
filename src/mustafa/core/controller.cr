@@ -109,6 +109,8 @@ module Mustafa
                     puts "There is no action : #{method_name}"
                     #show_404
                 end
+                rescue ex
+                    Mustafa::Library.log.add("on Action Error Handling (#{method_name}) : #{ex.message}")
             end
 
             ###

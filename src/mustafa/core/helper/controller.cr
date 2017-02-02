@@ -28,14 +28,15 @@ module Mustafa
         return true
       end
 
-      def load_controller(controller_name = "#{Mustafa::Config::MODULE_NAME}::#{Mustafa::Config::DEFAULT_CONTROLLER}", method_name = "index") : Mustafa::Core::Controller
+      ## method_name = "index" parameter is deleted.
+      def load_controller(controller_name = "#{Mustafa::Config::MODULE_NAME}::#{Mustafa::Config::DEFAULT_CONTROLLER}") : Mustafa::Core::Controller
         if Core.router.controller? controller_name
           controller_obj = Core.router.load_controller controller_name
 
           if controller_obj == Nil
             puts "Controller is not found : #{controller_name}"
-          else
-            controller_obj.run_action method_name
+          #else
+          #  controller_obj.run_action method_name
           end
 
           controller_obj
@@ -44,8 +45,8 @@ module Mustafa
 
           if controller_obj == Nil
             puts "Controller is not found : #{controller_name}"
-          else
-            controller_obj.run_action method_name
+          #else
+          #  controller_obj.run_action method_name
           end
 
           controller_obj

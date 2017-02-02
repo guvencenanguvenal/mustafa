@@ -1,6 +1,6 @@
 module Mustafa
     module Library
-        module DatabaseLibrary
+        module DatabaseType
             ###
             # this class DUMMY database connection that is to say Null Database
             ###

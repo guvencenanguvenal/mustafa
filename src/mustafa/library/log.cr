@@ -1,12 +1,13 @@
 require "file_utils.cr"
 
 module Mustafa
-    module Library
-        enum LogType
-            System
-            Application
-        end
 
+    enum LogType
+        System
+        Application
+    end
+
+    module Library
         class Log
             INSTANCE = Log.new
 

@@ -12,5 +12,7 @@ license: MIT
 dependencies:
   mysql:
     github: crystal-lang/crystal-mysql
+  sqlite3:
+    github: crystal-lang/crystal-sqlite3
   smtp:
     github: raydf/smtp.cr
