@@ -148,7 +148,7 @@ module Mustafa
             #
             # end
             ###
-            macro load_ecr(ecr_classname, *variables)
+            macro load_view(ecr_classname, *variables)
                 __loading_view = {{ecr_classname}}.new({% for variable, index in variables %} {{variable}}, {% end %})
                 __loading_view.load
 
