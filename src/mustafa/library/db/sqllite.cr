@@ -5,9 +5,7 @@ module Mustafa
         module DatabaseType
             class Sqlite < Core::DB
 
-                @db : DB::Database
-
-                def initialize(connetion_string = "sqlite3://./data.db")
+                def open(connetion_string = "sqlite3://./data.db")
                     @db = DB.open connetion_string
                 end
 

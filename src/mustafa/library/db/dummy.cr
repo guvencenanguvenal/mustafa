@@ -6,8 +6,8 @@ module Mustafa
             ###
             class Dummy < Core::DB
 
-                def initialize(host = "localhost", user = "root", pass = "", schema = "localhost")
-                    
+                def open(connection_string : String)
+
                 end
 
                 def query(query_string : String) : Array(Hash(String, String))

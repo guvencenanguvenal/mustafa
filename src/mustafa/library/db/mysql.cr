@@ -5,14 +5,8 @@ module Mustafa
         module DatabaseType
             class Mysql < Core::DB
 
-                @db : DB::Database
-
-                def initialize(connection_string : String)
+                def open(connection_string : String)
                     @db = DB.open connection_string
-                end
-
-                def initialize(host = "localhost", user = "root", pass = "", schema = "localhost")
-                    @db = DB.open "mysql://#{user}@#{host}/#{schema}"
                 end
 
                 def query(query_string : String) : Array(Hash(String, String))

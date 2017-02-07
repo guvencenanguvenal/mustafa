@@ -11,8 +11,9 @@ module Mustafa
             #
             # Library::Database.open  or  Library::Database.open("mysql://#{user}@#{host}/#{schema}", Library::DatabaseType::Mysql)
             ###
-            def self.open(connection_string = "mysql://root@localhost/localhost", db_class = Library::DatabaseType::Mysql)
-                @@db = db_class.new(connection_string).as(Core::DB)
+            def self.open(connection_string : String, db_class : Core::DB.class)
+                @@db = db_class.new().as(Core::DB)
+                @@db.open(connection_string)
                 rescue DB::ConnectionRefused
                     Library.log.add("Database is not conneting : DB Type : #{db_class}", LogType::System.value)
             end

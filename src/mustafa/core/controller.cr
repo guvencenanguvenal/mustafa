@@ -13,26 +13,13 @@ module Mustafa
             property :out
             property :params
 
-            ###
-            # controller is as a service
-            ###
-            @__is_service : Bool
-
-            def initialize(name : String, is_service = false)
+            def initialize(name : String)
                 @__actions = {} of String => Proc(Nil)
                 
                 @out = Http::Response.new
                 @params = [] of String
 
                 @__name = name
-                @__is_service = is_service
-            end
-
-            ###
-            # controller is as a service
-            ###
-            def service? : Bool
-                return @__is_service
             end
 
             ###
@@ -70,24 +57,11 @@ module Mustafa
             #   end
             ###
            macro init(controller_name)
-                def initialize(name : String, is_service = false)
-                    super(name, is_service)
+                def initialize(name : String)
+                    super(name)
                 end
 
                 INSTANCE = {{controller_name.id}}.new("#{{{controller_name}}}")
-                Core.router.register_controller INSTANCE.__name, INSTANCE
-            end
-
-            ###
-            #
-            #
-            ###
-            macro init_as_a_service(controller_name)
-                def initialize(name : String, is_service : Bool)
-                    super(name, is_service)
-                end
-
-                INSTANCE = {{controller_name.id}}.new("#{{{controller_name}}}", true)
                 Core.router.register_controller INSTANCE.__name, INSTANCE
             end
 
@@ -128,20 +102,8 @@ module Mustafa
             end
 
             ###
-            # this macro load your model
-            # 
-            # Example for use;
-            # load_model "Welcomemodel"
-            #
-            # welcomemodel.yourmodelmethod
-            ###
-            macro load_model(model_name)
-                {{model_name.downcase.id}} = {{model_name.id}}.new
-            end
-
-            ###
             # this macro load ecr with parameters
-            # load_view WelcomeView, "param1", "param2", "param3"
+            # load_view WelcomeView, "param1" : String, "param2" : String, "param3" : String
             #
             # this example for ECR View has 3 parameters
             # def initialize(@p1 : String, @p2 : String, @p3 : String)
@@ -149,8 +111,7 @@ module Mustafa
             # end
             ###
             macro load_view(ecr_classname, *variables)
-                __loading_view = {{ecr_classname}}.new({% for variable, index in variables %} {{variable}}, {% end %})
-                __loading_view.load
+                __loading_view = Core.loader.view({{ecr_classname}})
 
                 INSTANCE.out.output = __loading_view.to_s
             end
