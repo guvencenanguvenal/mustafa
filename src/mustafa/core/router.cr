@@ -39,8 +39,6 @@ module Mustafa
       ###
       def load_controller (name : Mustafa::Core::Controller.class) : Mustafa::Core::Controller
         @__controllers[@__controller_names[name]]
-        rescue ex
-          Mustafa::Library.log.add("#{name} : Controller is not found! : #{ex.message}")
       end
 
       def controller? (name : String) : Bool
