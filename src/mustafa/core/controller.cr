@@ -12,7 +12,7 @@ module Mustafa
             property :out
             property :params
 
-            def initialize(name : String)
+            def initialize()
                 @__actions = {} of String => Proc(Nil)
                 
                 @out = Http::Response.new
