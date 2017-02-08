@@ -5,7 +5,6 @@ module Mustafa
             # only getter property
             ###
             getter :__actions
-            getter :__name
 
             ###
             # getter and setter property
@@ -18,8 +17,6 @@ module Mustafa
                 
                 @out = Http::Response.new
                 @params = [] of String
-
-                @__name = name
             end
 
             ###
@@ -64,11 +61,7 @@ module Mustafa
             #   end
             ###
            macro init(controller_name)
-                def initialize(name : String)
-                    super(name)
-                end
-
-                Core.router.register_controller "#{{{controller_name}}}", {{controller_name.id}}.new("#{{{controller_name}}}")
+                Core.router.register_controller "#{{{controller_name}}}", {{controller_name.id}}.new()
             end
 
             ###

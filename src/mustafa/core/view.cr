@@ -7,6 +7,7 @@ module Mustafa
             
             getter view_params = {} of String => String
             getter view_arrays = {} of String => Array(String)
+            getter view_hashes = {} of String => Hash(String, String)
 
             ###
             # this method is abstract. it use for initialize view s values
@@ -15,16 +16,23 @@ module Mustafa
             abstract def load
 
             ###
-            #
+            # This method to add param to view
             ###
             def add_param(key : String, value : String)
                 @view_params[key] = value
             end
 
             ###
-            #
+            # This method to send array to view
             ###
-            def add_array(key : String, value : Array(String))
+            def add_array_param(key : String, value : Array(String))
+                @view_arrays[key] = value
+            end
+
+            ###
+            # This method to send hash to view
+            ###
+            def add_hash_param(key : String, value : Hash(String))
                 @view_arrays[key] = value
             end
 
