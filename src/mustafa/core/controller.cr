@@ -23,6 +23,13 @@ module Mustafa
             end
 
             ###
+            # get controller instance
+            ###
+            def self.instance : Core::Controller
+                Core.router.load_controller(self)
+            end
+
+            ###
             # this macro use for controller actions defined
             #
             #  class WelcomeController < Controller
@@ -35,7 +42,7 @@ module Mustafa
             #
             ###
             macro action (name, &block)
-                INSTANCE.__action__({{name}}) {{block}}
+                Core.router.load_controller(self).__action__({{name}}) {{block}}
             end
 
             protected def __action__(name : String, &block)
@@ -61,8 +68,7 @@ module Mustafa
                     super(name)
                 end
 
-                INSTANCE = {{controller_name.id}}.new("#{{{controller_name}}}")
-                Core.router.register_controller INSTANCE.__name, INSTANCE
+                Core.router.register_controller "#{{{controller_name}}}", {{controller_name.id}}.new("#{{{controller_name}}}")
             end
 
             ###
@@ -113,7 +119,7 @@ module Mustafa
             macro load_view(ecr_classname, *variables)
                 __loading_view = Core.loader.view({{ecr_classname}})
 
-                INSTANCE.out.output = __loading_view.to_s
+                Core.router.load_controller(self).out.output = __loading_view.to_s
             end
 
             ###
