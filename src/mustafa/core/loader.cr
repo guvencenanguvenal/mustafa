@@ -25,18 +25,20 @@ module Mustafa
             ###
             #
             ###
-            def view(view_class : Core::View.class)
+            def view(controller : Core::Controller, view_class : Core::View.class)
                 _view = view_class.new
                 _view.load
                 yield _view
+                controller.out = _view.to_s
             end
 
             ###
             #
             ###
-            def view(view_class : Core::View.class) : Core::View
+            def view(controller : Core::Controller, view_class : Core::View.class) : Core::View
                 _view = view_class.new
                 _view.load
+                controller.out = _view.to_s
                 _view
             end
 
