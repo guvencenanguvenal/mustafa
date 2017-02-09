@@ -109,37 +109,34 @@ module Mustafa
             ###
             #
             ###
-            def db : Core::DB
-                _db = @db_class.new
-                _db.open(@connetion_string)
+            def db : Core::IDatabase
+                _db = @db_class.new(@connetion_string)
 
                 return _db
                 rescue DB::ConnectionRefused
-                    Library.log.add("Database is not conneting : DB Type : #{db_class}", LogType::System.value)
+                    Library.log.add("Database is not conneting : DB Type : #{@db_class}", LogType::System.value)
             end
 
             ###
             #
             ###
             def db
-                _db = @db_class.new
-                _db.open(@connetion_string)
+                _db = @db_class.new(@connetion_string)
                 yield _db
                 _db.close
                 
                 rescue DB::ConnectionRefused
-                    Library.log.add("Database is not conneting : DB Type : #{db_class}", LogType::System.value)
+                    Library.log.add("Database is not conneting : DB Type : #{@db_class}", LogType::System.value)
             end
 
             ###
             #
             ###
-            def db(db_class : Core::DB.class, connetion_string : String) : Core::DB
+            def db(db_class : Core::IDatabase.class, connetion_string : String) : Core::IDatabase
                 @db_class = db_class
                 @connetion_string = connetion_string
 
-                _db = db_class.new
-                _db.open(connetion_string)
+                _db = db_class.new(connetion_string)
 
                 return _db
                 rescue DB::ConnectionRefused
@@ -149,12 +146,11 @@ module Mustafa
             ###
             #
             ###
-            def db(db_class : Core::DB.class, connetion_string : String)
+            def db(db_class : Core::IDatabase.class, connetion_string : String)
                 @db_class = db_class
                 @connetion_string = connetion_string
 
-                _db = db_class.new
-                _db.open(connetion_string)
+                _db = db_class.new(connetion_string)
                 yield _db
                 _db.close
                 

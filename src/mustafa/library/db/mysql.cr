@@ -1,7 +1,9 @@
 module Mustafa
     module Library
         module Database
-            class Mysql < Core::DB
+            class Mysql < Core::IDatabase
+
+                @db : DB::Database
 
                 def initialize(connection_string : String)
                     @db = DB.open connection_string

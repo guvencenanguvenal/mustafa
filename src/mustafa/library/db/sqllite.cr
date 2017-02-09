@@ -1,7 +1,9 @@
 module Mustafa
     module Library
         module Database
-            class Sqlite < Core::DB
+            class Sqlite < Core::IDatabase
+
+                @db : DB::Database
 
                 def initialize(connection_string = "sqlite3://./data.db")
                     @db = DB.open connection_string

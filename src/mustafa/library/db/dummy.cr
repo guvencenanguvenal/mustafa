@@ -4,7 +4,7 @@ module Mustafa
             ###
             # this class DUMMY database connection that is to say Null Database
             ###
-            class Dummy < Core::DB
+            class Dummy < Core::IDatabase
 
                 def initialize(connection_string : String)
 
