@@ -20,7 +20,7 @@ module Mustafa
             ###
             #
             ###
-            def entity_model(model_class : Core::Model.class) : Core::Model
+            def entity_model(table : String, model_class : Core::Model.class) : Core::Model
                 _model = model_class.new
                 _model.entity_intialize(table)
                 _model                

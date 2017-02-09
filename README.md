@@ -65,11 +65,7 @@ Welcomemodel.cr
 ```
 class Welcomemodel < Core::Model
 	def hello
-		Core.loader.db do |db|
-			ret_val = db.select("id, name", "table", "id = 3")
-			
-			puts ret_val[0]["name"]
-		end
+		puts "hello"
   	end
 end
 ```
@@ -85,20 +81,17 @@ class Welcomecontroller < Core::Controller
 
   action "index" do
   
-  	Core.loader.model(Welcomemodel) do |model|
-  		model.initialize_entity("table_name") #this method to initialize entity model
+  	Core.loader.entity_model("tablename", Welcomemodel) do |model|
+  		model.hello 							#puts hello on terminal
   	
-  		model.hello
+  		ret_val = model.select_all("id = 3")   	#select * from tablename where id = 3
   	
-  		ret_val = model.select_all #select * from tablename where true
-  	
-  		puts ret_val[0]["id"] # 1. row and id column
+  		puts ret_val[0]["id"] 					# 1. row and id column
   	end
   
     Core.loader.view(self, Welcomeview) do |view|
     	view.add_param("key", "value")
     end
-    
   end
 end
 ```
@@ -114,7 +107,7 @@ class Welcomeview < Core::View
   
   def load
      if (view_params["key"] == "value")
-     	puts "hello"
+     	puts "hello"							#put hello on terminal
      end
   end
   
@@ -122,26 +115,7 @@ end
 ```
 Welcome.ecr
 ```
-Selam, <%= @view_params["key"] %>!  # value
-```
-
-## Control
-
-You can create your custom control or can use Mustafa's controls with `include MustafaControl` command.
-
-Welcomeview.cr
-```
-module Yourcustomcontrols
-  class Controlname < Core::Control
-    init_property example
-    init_property type
-    
-    init " example: \"Default Value\", type: \"submit\" "
-
-    show "<button type=\"#{control_property("type")}\">#{control_property("example")}</button>"
-    
-  end
-end
+Selam, <%= @view_params["key"] %>!  			# value
 ```
 
 ## Run, go go go
