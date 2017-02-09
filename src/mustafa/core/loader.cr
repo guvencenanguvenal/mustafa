@@ -11,6 +11,24 @@ module Mustafa
             ###
             #
             ###
+            def entity_model(table : String, model_class : Core::Model.class)
+                _model = model_class.new
+                _model.entity_intialize(table)
+                yield _model
+            end
+
+            ###
+            #
+            ###
+            def entity_model(model_class : Core::Model.class) : Core::Model
+                _model = model_class.new
+                _model.entity_intialize(table)
+                _model                
+            end
+
+            ###
+            #
+            ###
             def model(model_class : Core::Model.class)
                 yield model_class.new
             end
@@ -35,11 +53,10 @@ module Mustafa
             ###
             #
             ###
-            def view(controller : Core::Controller, view_class : Core::View.class) : Core::View
+            def view(controller : Core::Controller, view_class : Core::View.class)
                 _view = view_class.new
                 _view.load
                 controller.out.output = _view.to_s
-                _view
             end
 
             ###
@@ -87,10 +104,40 @@ module Mustafa
                 end                
             end
 
+            @connetion_string = Constant::DB_CONNECTION_STRING
+            @db_class = Constant::DB_CLASS
+            ###
+            #
+            ###
+            def db : Core::DB
+                _db = @db_class.new
+                _db.open(@connetion_string)
+
+                return _db
+                rescue DB::ConnectionRefused
+                    Library.log.add("Database is not conneting : DB Type : #{db_class}", LogType::System.value)
+            end
+
+            ###
+            #
+            ###
+            def db
+                _db = @db_class.new
+                _db.open(@connetion_string)
+                yield _db
+                _db.close
+                
+                rescue DB::ConnectionRefused
+                    Library.log.add("Database is not conneting : DB Type : #{db_class}", LogType::System.value)
+            end
+
             ###
             #
             ###
             def db(db_class : Core::DB.class, connetion_string : String) : Core::DB
+                @db_class = db_class
+                @connetion_string = connetion_string
+
                 _db = db_class.new
                 _db.open(connetion_string)
 
@@ -103,6 +150,9 @@ module Mustafa
             #
             ###
             def db(db_class : Core::DB.class, connetion_string : String)
+                @db_class = db_class
+                @connetion_string = connetion_string
+
                 _db = db_class.new
                 _db.open(connetion_string)
                 yield _db

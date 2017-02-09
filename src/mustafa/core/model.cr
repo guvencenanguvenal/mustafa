@@ -1,51 +1,51 @@
 module Mustafa
   module Core
-    abstract class Model < Core::DB
+    abstract class Model
 
       getter entity_name = ""
 
-      macro init(table_name)
-        initialize_entity({{table_name}})
-      end
-
-      def initialize_entity(table : String)
+      protected def initialize_entity(table : String)
         @entity_name = table
       end
 
-      def open(connetion_string : String)
+      def select(select_columns : String, where = "true") : Array(Hash(String, String))
+          _retval = Array(Hash(Sring, String)).new
 
+          Core.loader.db do |db|
+            _retval = db.select(select_columns, @entity_name, where)
+          end
+
+          _retval
       end
 
-      def query(query_string : String) : Array(Hash(String, String))
-          Array(Hash(String, String)).new
+      def select_all(where = "true") : Array(Hash(String, String))
+          _retval = Array(Hash(String, String)).new
+
+          Core.loader.db do |db|
+            _retval = db.select_all(@entity_name, where)
+          end
+
+          _retval
       end
 
-      def select(select_columns : String, from : String, where = "true") : Array(Hash(String, String))
-          Array(Hash(String, String)).new
-      end
-
-      def select_all(from : String, where = "true") : Array(Hash(String, String))
-          Array(Hash(String, String)).new
-      end
-
-      def select_table_count(table : String)
+      def select_table_count()
           0
       end
 
-      def select_count(table : String, where : String)
+      def select_count(where : String)
           0
       end
 
-      def insert(table : String, values : Array(DB::Any))
-          
+      def insert(values : Array(DB::Any))
+          Core.loader.db do |db|
+            db.insert(@entity_name, values)
+          end
       end
 
-      def delete(table : String, where = "false")
-          
-      end
-
-      def close
-          
+      def delete(where = "false")
+          Core.loader.db do |db|
+            db.delete(@entity_name, where)
+          end
       end
 
       #this class for model

@@ -1,12 +1,12 @@
 module Mustafa
     module Library
-        module DatabaseType
+        module Database
             ###
             # this class DUMMY database connection that is to say Null Database
             ###
             class Dummy < Core::DB
 
-                def open(connection_string : String)
+                def initialize(connection_string : String)
 
                 end
 

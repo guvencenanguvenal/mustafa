@@ -1,11 +1,9 @@
-require "mysql"
-
 module Mustafa
     module Library
-        module DatabaseType
+        module Database
             class Mysql < Core::DB
 
-                def open(connection_string : String)
+                def initialize(connection_string : String)
                     @db = DB.open connection_string
                 end
 

@@ -7,11 +7,6 @@ module Mustafa
             # Pls open connection on initialize method
 
             ###
-            #
-            ###
-            abstract def open(connetion_string : String)
-
-            ###
             # this method is to run query
             ###
             abstract def query(query_string : String) : Array(Hash(String, String))
