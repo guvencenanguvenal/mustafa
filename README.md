@@ -64,9 +64,9 @@ Model name must be capitalized case (first letter is upper, other letters is low
 Welcomemodel.cr
 ```
 class Welcomemodel < Core::Model
-  def hello
-    puts "hello"
-  end
+	def hello
+		puts "hello"
+  	end
 end
 ```
 
@@ -79,11 +79,19 @@ Welcomecontroller.cr
 class Welcomecontroller < Core::Controller
   init Welcomecontroller
 
-  load_model "Welcomemodel"
-
   action "index" do
-    welcomemodel.hello  #put terminal hello before load view
-    load_view Welcomeview, "Mustafa'ya Hosgeldin"
+  
+  	Core.loader.entity_model("tablename", Welcomemodel) do |model|
+  		model.hello 							#puts hello on terminal
+  	
+  		ret_val = model.select_all("id = 3")   	#select * from tablename where id = 3
+  	
+  		puts ret_val[0]["id"] 					# 1. row and id column
+  	end
+  
+    Core.loader.view(self, Welcomeview) do |view|
+    	view.add_param("key", "value")
+    end
   end
 end
 ```
@@ -95,43 +103,19 @@ View has a class and an ECR File
 Welcomeview.cr
 ```
 class Welcomeview < Core::View
-  init "Welcome.ecr", name : String
-  
-  include MustafaControl
-  
-  load_custom_control "Panel"
+  init "Welcome.ecr"
   
   def load
-     @panel.panel_type = "success"
+     if (view_params["key"] == "value")
+     	puts "hello"							#put hello on terminal
+     end
   end
   
 end
 ```
 Welcome.ecr
 ```
-Selam, <%= @name %>!
-
-<%= @panel.show %> #panel render with default values
-<%= @panel.show panel_type: "danger", title: "Panel Title", content: "it is content!" #panel render with initialize values 
-```
-
-## Control
-
-You can create your custom control or can use Mustafa's controls with `include MustafaControl` command.
-
-Welcomeview.cr
-```
-module Yourcustomcontrols
-  class Controlname < Core::Control
-    init_property example
-    init_property type
-    
-    init " example: \"Default Value\", type: \"submit\" "
-
-    show "<button type=\"#{control_property("type")}\">#{control_property("example")}</button>"
-    
-  end
-end
+Selam, <%= @view_params["key"] %>!  			# value
 ```
 
 ## Run, go go go

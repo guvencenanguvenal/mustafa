@@ -1,18 +1,12 @@
-require "mysql"
-
 module Mustafa
     module Library
-        module DatabaseType
-            class Mysql < Core::DB
+        module Database
+            class Mysql < Core::IDatabase
 
                 @db : DB::Database
 
                 def initialize(connection_string : String)
                     @db = DB.open connection_string
-                end
-
-                def initialize(host = "localhost", user = "root", pass = "", schema = "localhost")
-                    @db = DB.open "mysql://#{user}@#{host}/#{schema}"
                 end
 
                 def query(query_string : String) : Array(Hash(String, String))

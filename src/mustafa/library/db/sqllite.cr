@@ -1,14 +1,12 @@
-require "sqlite3"
-
 module Mustafa
     module Library
-        module DatabaseType
-            class Sqlite < Core::DB
+        module Database
+            class Sqlite < Core::IDatabase
 
                 @db : DB::Database
 
-                def initialize(connetion_string = "sqlite3://./data.db")
-                    @db = DB.open connetion_string
+                def initialize(connection_string = "sqlite3://./data.db")
+                    @db = DB.open connection_string
                 end
 
                 def query(query_string : String) : Array(Hash(String, String))

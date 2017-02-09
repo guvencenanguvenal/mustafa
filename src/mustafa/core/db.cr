@@ -3,7 +3,7 @@ module Mustafa
         ###
         # this class is abstract to create database class.
         ###
-        abstract class DB
+        abstract class IDatabase
             # Pls open connection on initialize method
 
             ###

@@ -1,13 +1,13 @@
 module Mustafa
     module Library
-        module DatabaseType
+        module Database
             ###
             # this class DUMMY database connection that is to say Null Database
             ###
-            class Dummy < Core::DB
+            class Dummy < Core::IDatabase
 
-                def initialize(host = "localhost", user = "root", pass = "", schema = "localhost")
-                    
+                def initialize(connection_string : String)
+
                 end
 
                 def query(query_string : String) : Array(Hash(String, String))
