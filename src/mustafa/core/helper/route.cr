@@ -8,6 +8,10 @@ module Mustafa
           Input.get.set_with_query query
         elsif method == "POST"
           Input.post.set_with_query query
+        elsif method == "PUT"
+          Input.put.set_with_query query
+        elsif method == "DELETE"
+          Input.delete.set_with_query query
         end
       end
 

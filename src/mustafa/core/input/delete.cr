@@ -1,7 +1,7 @@
 module Mustafa
     module Input
         class DELETE  
-            INSTANCE = POST.new
+            INSTANCE = DELETE.new
 
             getter :params
 
@@ -47,11 +47,11 @@ module Mustafa
         end
 
         def self.delete
-            yield POST::INSTANCE
+            yield DELETE::INSTANCE
         end
 
         def self.delete
-            POST::INSTANCE
+            DELETE::INSTANCE
         end
 
     end

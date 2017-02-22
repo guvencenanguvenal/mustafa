@@ -1,7 +1,7 @@
 module Mustafa
     module Input
         class PUT  
-            INSTANCE = POST.new
+            INSTANCE = PUT.new
 
             getter :params
 
@@ -34,7 +34,7 @@ module Mustafa
             end
 
             ###
-            # this method is implement for develop envoriment
+            # this method is implemented for development envoriment
             ###
             def set_with_query(query : String)
                 @params = {} of String => Array(String)
@@ -47,11 +47,11 @@ module Mustafa
         end
 
         def self.put
-            yield POST::INSTANCE
+            yield PUT::INSTANCE
         end
 
         def self.put
-            POST::INSTANCE
+            PUT::INSTANCE
         end
 
     end
