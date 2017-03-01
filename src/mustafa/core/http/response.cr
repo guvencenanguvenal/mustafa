@@ -28,6 +28,11 @@ module Mustafa
                 @content_type = "text/html"
             end
 
+            def json (str : String)
+                @output = str
+                @content_type = "application/json"
+            end
+
         end
     end
 end

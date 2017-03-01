@@ -62,16 +62,31 @@ module Mustafa
             ###
             #
             ###
-            def control(control_class : Core::Control.class)
-                yield control_class.new
-            end
+            def json(controller : Core::Controller, out_json : String)
+                yield
+                controller.out.json(out_json)
+            end  
 
             ###
             #
             ###
-            def control(control_class : Core::Control.class) : Core::Control
-                control_class.new
-            end
+            def json(controller : Core::Controller, out_json : String)
+                controller.out.json(out_json)
+            end            
+
+            ###
+            #
+            ###
+            #def control(control_class : Core::Control.class)
+            #    yield control_class.new
+            #end
+
+            ###
+            #
+            ###
+            #def control(control_class : Core::Control.class) : Core::Control
+            #    control_class.new
+            #end
 
             ###
             #

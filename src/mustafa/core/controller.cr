@@ -120,6 +120,9 @@ module Mustafa
             #
             # :TODO
             ###
+            macro load_json(out_json)
+                controller.out.json out_json
+            end
 
         end
     end
