@@ -2,7 +2,10 @@ require "http"
 
 module Mustafa
     module Http
-        class Handler < HTTP::Handler
+        class Handler
+
+            include HTTP::Handler
+
             def call(context)     
                 request = Http::Request.new context.request
                 response = Http::Response.new

@@ -4,8 +4,11 @@ require "json"
 module Mustafa
     module Http
         module Session
-            class Handler < HTTP::Handler
-                def initialize(@session_key = "session_cr", secret_key = "Mustafa")
+            class Handler
+
+                include HTTP::Handler
+
+                def initialize(@session_key = Constant::SESSION_KEY, secret_key = Constant::SESSION_SECRET_KEY)
                     @encoder = Helper::Encoder.new(secret_key)
                 end
 

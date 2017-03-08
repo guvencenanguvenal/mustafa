@@ -16,5 +16,3 @@ dependencies:
     github: crystal-lang/crystal-sqlite3
   smtp:
     github: raydf/smtp.cr
-  mongo:
-    github: datanoise/mongo.cr

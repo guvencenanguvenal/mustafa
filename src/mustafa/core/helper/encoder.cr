@@ -1,6 +1,6 @@
 require "openssl/hmac"
 require "base64"
-require "crypto/md5"
+require "openssl/md5"
 
 module Mustafa
   module Helper
@@ -27,7 +27,7 @@ module Mustafa
       end
 
       def hex_digest(data)
-        Crypto::MD5.hex_digest(data)
+        OpenSSL::MD5.hash(data)
       end
     end
   end
