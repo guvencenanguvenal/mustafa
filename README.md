@@ -64,11 +64,11 @@ Model name must be capitalized case (first letter is upper, other letters is low
 Welcomemodel.cr
 ```
 class Welcomemodel < Core::Model
-	init Welcomemodel, Core::Model::Scope::Singleton
+  init Welcomemodel, Core::Model::Scope::Singleton
 
-	def hello
-		puts "hello"
-  	end
+  def hello
+    puts "hello"
+  end
 end
 ```
 
@@ -83,12 +83,12 @@ class Welcomecontroller < Core::Controller
 
   action "index" do
   
-  	Core.loader.library([Customlib, Library::Crypto]) do |val|
-    	val[Customlib].as(Customlib).hello
+    Core.loader.library([Customlib, Library::Crypto]) do |val|
+      val[Customlib].as(Customlib).hello
     end
   
-  	Core.loader.model(Welcomemodel) do |model|
-        model.deneme
+    Core.loader.model(Welcomemodel) do |model|
+      model.deneme
     end
   
     Core.loader.view(self, Welcomeview)
@@ -106,16 +106,15 @@ class Welcomeview < Core::View
   init "Welcome.ecr"
   
   def load
-     if (view_params["key"] == "value")
-     	puts "hello"							#put hello on terminal
-     end
+    if (view_params["key"] == "value")
+      puts "hello"                      #put hello on terminal
+    end
   end
-  
 end
 ```
 Welcome.ecr
 ```
-Selam, <%= @view_params["key"] %>!  			# value
+Selam, <%= @view_params["key"] %>!      # value
 ```
 
 ## Run, go go go
