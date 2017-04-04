@@ -131,10 +131,10 @@ end
 
 # What's new with the new version:
 
-*Create your custom library
-*Select your model scope
-*New loader system
-*It's now faster than before
+* Create your custom library
+* Select your model scope
+* New loader system
+* It's now faster than before
 
 # Contribute
 
