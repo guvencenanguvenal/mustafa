@@ -8,6 +8,10 @@ module Mustafa
             getter view_params = {} of String => String
             getter view_arrays = {} of String => Array(String)
             getter view_hashes = {} of String => Hash(String, String)
+            
+            property content_type = "text/html"
+            property content_length = 0
+            property status_code = 200
 
             ###
             # this method is abstract. it use for initialize view s values

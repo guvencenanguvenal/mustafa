@@ -13,7 +13,7 @@ module Mustafa
             # this method return only a get query parameter 
             # 
             ###
-            def value(index : Int32) : String
+            def [](index : Int32) : String
                 if @params.size > index
                     @params[index]
                 else

@@ -5,172 +5,143 @@ module Mustafa
             INSTANCE = Loader.new
 
             def initialize
-                @custom_libraries = {} of String => Core::Library
+                
             end
 
             ###
             #
             ###
-            def entity_model(table : String, model_class : Core::Model.class)
-                _model = model_class.new
-                _model.entity_intialize(table)
-                yield _model
+            def model(model_name : Model.class)
+                _model = Helper.model.load_model model_name
+                if _model
+                    return _model
+                else
+                    raise "Model is not found!"
+                end
             end
 
             ###
             #
             ###
-            def entity_model(table : String, model_class : Core::Model.class) : Core::Model
-                _model = model_class.new
-                _model.entity_intialize(table)
-                _model                
+            def model(model_name : Model.class)
+                _model = Helper.model.load_model model_name
+
+                if _model
+                    yield _model
+                else
+                    raise "Model is not found!"
+                end
             end
 
             ###
             #
             ###
-            def model(model_class : Core::Model.class)
-                yield model_class.new
+            def view(controller_class : Core::Controller.class, view_class : Core::View.class)
+                Helper.controller.__controllers[Helper.controller.__controller_names[controller_class]].register_view view_class
             end
 
             ###
             #
             ###
-            def model(model_class : Core::Model.class) : Core::Model
-                model_class.new
-            end
-
-            ###
-            #
-            ###
-            def view(controller : Core::Controller, view_class : Core::View.class)
-                _view = view_class.new
-                _view.load
-                yield _view
-                controller.out.output = _view.to_s
-            end
-
-            ###
-            #
-            ###
-            def view(controller : Core::Controller, view_class : Core::View.class)
-                _view = view_class.new
-                _view.load
-                controller.out.output = _view.to_s
-            end
-
-            ###
-            #
-            ###
-            def json(controller : Core::Controller, out_json : String)
-                yield
-                controller.out.json(out_json)
+            def view(controller_class : Core::Controller.class, view_class : Core::View.class)
+                Helper.controller.__controllers[Helper.controller.__controller_names[controller_class]].register_view view_class do |view|
+                    yield view
+                end
             end  
 
             ###
             #
             ###
-            def json(controller : Core::Controller, out_json : String)
-                controller.out.json(out_json)
-            end            
+            def json(controller_class : Core::Controller.class, json_output : String)
+                Helper.controller.__controllers[Helper.controller.__controller_names[controller_class]].register_json json_output
+            end           
 
             ###
             #
             ###
-            #def control(control_class : Core::Control.class)
-            #    yield control_class.new
-            #end
+            def library(library_names : Array(Core::Library.class))
+                _libraries = Hash(Core::Library.class, Core::Library).new
 
-            ###
-            #
-            ###
-            #def control(control_class : Core::Control.class) : Core::Control
-            #    control_class.new
-            #end
-
-            ###
-            #
-            ###
-            def custom_library(library_class : Core::Library.class)
-                _tmp_array = "#{library_class}".split("::")
-                library_name = _tmp_array.max
-
-                if !@custom_libraries.has_key?(library_name)
-                    @custom_libraries[library_name] = library_class.new
-                    yield @custom_libraries[library_name]
-                else
-                    yield @custom_libraries[library_name]
-                end                
+                library_names.each do |name|
+                    _lib = Helper.library.load_library(name)
+                    
+                    if _lib
+                        _libraries[name] = _lib
+                    end
+                end
+                
+                yield _libraries
             end
 
             ###
             #
             ###
-            def custom_library(library_class : Core::Library.class) : Core::Library
-                _tmp_array = "#{library_class}".split("::")
-                library_name = _tmp_array.max
+            def library(library_names : Array(Core::Library.class)) : Hash(Core::Library.class, Core::Library)
+                _libraries = Hash(Core::Library.class, Core::Library).new
 
-                if !@custom_libraries.has_key?(library_name)
-                    @custom_libraries[library_name] = library_class.new
-
-                    @custom_libraries[library_name]
-                else
-                    @custom_libraries[library_name]
-                end                
+                library_names.each do |name|
+                    _lib = Helper.library.load_library(name)
+                    
+                    if _lib
+                        _libraries[name] = _lib
+                    end
+                end
+                
+                _libraries           
             end
 
-            @connetion_string = Constant::DB_CONNECTION_STRING
-            @db_class = Constant::DB_CLASS
+            @__connetion_string = Constant::DB_CONNECTION_STRING
+            @__db_class = Constant::DB_CLASS
             ###
             #
             ###
             def db : Core::IDatabase
-                _db = @db_class.new(@connetion_string)
+                _db = @__db_class.new(@connetion_string)
 
                 return _db
                 rescue DB::ConnectionRefused
-                    Library.log.add("Database is not conneting : DB Type : #{@db_class}", LogType::System.value)
+                    Mustafa::Library.log.add("Database is not conneting : DB Type : #{@__db_class}", Mustafa::LogType::System.value)
             end
 
             ###
             #
             ###
             def db
-                _db = @db_class.new(@connetion_string)
+                _db = @__db_class.new(@__connetion_string)
                 yield _db
                 _db.close
                 
                 rescue DB::ConnectionRefused
-                    Library.log.add("Database is not conneting : DB Type : #{@db_class}", LogType::System.value)
+                    Mustafa::Library.log.add("Database is not conneting : DB Type : #{@__db_class}", Mustafa::LogType::System.value)
             end
 
             ###
             #
             ###
             def db(db_class : Core::IDatabase.class, connetion_string : String) : Core::IDatabase
-                @db_class = db_class
-                @connetion_string = connetion_string
+                @__db_class = db_class
+                @__connetion_string = connetion_string
 
                 _db = db_class.new(connetion_string)
 
                 return _db
                 rescue DB::ConnectionRefused
-                    Library.log.add("Database is not conneting : DB Type : #{db_class}", LogType::System.value)
+                    Mustafa::Library.log.add("Database is not conneting : DB Type : #{db_class}", Mustafa::LogType::System.value)
             end
 
             ###
             #
             ###
             def db(db_class : Core::IDatabase.class, connetion_string : String)
-                @db_class = db_class
-                @connetion_string = connetion_string
+                @__db_class = db_class
+                @__connetion_string = connetion_string
 
-                _db = db_class.new(connetion_string)
+                __db = db_class.new(connetion_string)
                 yield _db
                 _db.close
                 
                 rescue DB::ConnectionRefused
-                    Library.log.add("Database is not conneting : DB Type : #{db_class}", LogType::System.value)
+                    Mustafa::Library.log.add("Database is not conneting : DB Type : #{db_class}", Mustafa::LogType::System.value)
             end
         end
 

@@ -1,55 +1,12 @@
 module Mustafa
     module Core
         abstract class Controller
-            ###
-            # only getter property
-            ###
-            getter :__actions
 
-            ###
-            # getter and setter property
-            ###
-            property :out
-            property :params
+            getter view : Mustafa::Core::View
 
-            def initialize()
-                @__actions = {} of String => Proc(Nil)
-                
-                @out = Http::Response.new
-                @params = [] of String
-            end
-
-            ###
-            # get controller instance
-            ###
-            def self.instance : Core::Controller
-                Core.router.load_controller(self)
-            end
-
-            ###
-            # this macro use for controller actions defined
-            #
-            #  class WelcomeController < Controller
-            #   register WelcomeController
-            #   
-            #   action "action_name" do
-            #       &block
-            #   end
-            #  end
-            #
-            ###
-            macro action (name, &block)
-                Core.router.load_controller(self).__action__({{name}}) {{block}}
-            end
-
-            protected def __action__(name : String, &block)
-                if !@__actions.has_key?(name)
-                    @__actions[name] = block
-                    puts "Action is registed. #{name}"
-                else
-                    Library.log.add("Action is already exist.")
-                    puts "Action is already exist."
-                end
+            def initialize(actions : Hash(String, Proc(Nil)))
+                @view = Mustafa::Notfoundview.new
+                @__actions = actions
             end
 
             ###
@@ -61,7 +18,15 @@ module Mustafa
             #   end
             ###
            macro init(controller_name)
-                Core.router.register_controller "#{{{controller_name}}}", {{controller_name.id}}.new()
+                Core::Helper.controller.register_controller "#{{{controller_name}}}", {{controller_name.id}}
+
+                def initialize(actions : Hash(String, Proc(Nil)))
+                    super(actions)
+                end
+            end
+
+            macro action (name, &block)
+                Core::Helper.controller.register_action(self, {{name}}) {{block}}
             end
 
             ###
@@ -78,7 +43,7 @@ module Mustafa
                         callback.call
                     end
                 else
-                    Library.log.add("There is no action : #{method_name}")
+                    Mustafa::Library.log.add("There is no action : #{method_name}")
                     puts "There is no action : #{method_name}"
                     #show_404
                 end
@@ -87,41 +52,36 @@ module Mustafa
             end
 
             ###
-            # for init simple view page
-            # this view is non-parametric
+            #
             ###
-            macro init_base_view(name, filename)
-                class {{name}} < Core::View
-                    ECR.def_to_s {{filename}}
-
-                    def load
-
-                    end
-                end
+            def register_view(view_class : Mustafa::Core::View.class)
+                @view = view_class.new
+                puts "#{view_class} view is registed for #{self} controller!"
             end
 
             ###
-            # this macro load ecr with parameters
-            # load_view WelcomeView, "param1" : String, "param2" : String, "param3" : String
             #
-            # this example for ECR View has 3 parameters
-            # def initialize(@p1 : String, @p2 : String, @p3 : String)
-            #
-            # end
             ###
-            macro load_view(ecr_classname, *variables)
-                __loading_view = Core.loader.view({{ecr_classname}})
-
-                Core.router.load_controller(self).out.output = __loading_view.to_s
+            def register_view(view_class : Mustafa::Core::View.class)
+                @view = view_class.new
+                yield @view
+                puts "#{view_class} view is registed for #{self} controller!"
             end
 
             ###
-            # JSON is coming
             #
-            # :TODO
             ###
-            macro load_json(out_json)
-                controller.out.json out_json
+            def register_json(json_output : String)
+                @view = JSONview.new(json_output)
+                puts "JSON output for #{self} controller!"
+            end
+
+            ###
+            #
+            ###
+            def load_view : Mustafa::Core::View
+                @view.load
+                @view
             end
 
         end

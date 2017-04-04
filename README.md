@@ -38,8 +38,8 @@ call controller which name is Welcome and run action(method) which name is "hell
 call controller which name is Welcome and run action(method) which name is "hello" and.. 
 
 ```
-Library.input.params 0 => "param1"
-Library.input.params 1 => "param2"
+Input.params[0] => "param1"
+Input.params[1] => "param2"
 ```
 >**Note:** params is not get or post
 
@@ -64,6 +64,8 @@ Model name must be capitalized case (first letter is upper, other letters is low
 Welcomemodel.cr
 ```
 class Welcomemodel < Core::Model
+	init Welcomemodel, Core::Model::Scope::Singleton
+
 	def hello
 		puts "hello"
   	end
@@ -81,17 +83,15 @@ class Welcomecontroller < Core::Controller
 
   action "index" do
   
-  	Core.loader.entity_model("tablename", Welcomemodel) do |model|
-  		model.hello 							#puts hello on terminal
-  	
-  		ret_val = model.select_all("id = 3")   	#select * from tablename where id = 3
-  	
-  		puts ret_val[0]["id"] 					# 1. row and id column
-  	end
-  
-    Core.loader.view(self, Welcomeview) do |view|
-    	view.add_param("key", "value")
+  	Core.loader.library([Customlib, Library::Crypto]) do |val|
+    	val[Customlib].as(Customlib).hello
     end
+  
+  	Core.loader.model(Welcomemodel) do |model|
+        model.deneme
+    end
+  
+    Core.loader.view(self, Welcomeview)
   end
 end
 ```

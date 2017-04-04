@@ -1,7 +1,7 @@
 module Mustafa
     module Input
-        class PUT  
-            INSTANCE = PUT.new
+        class POST  
+            INSTANCE = POST.new
 
             getter :params
 
@@ -13,11 +13,15 @@ module Mustafa
             # this method return post query parameters
             # 
             ###
-            def value_array(key : String) : Array(String)
+            def [](key : String, index : Int32) : String
                 if @params.has_key?(key)
-                    @params[key]
+                    if @params[key].size > index
+                        @params[key][index]
+                    else
+                        ""
+                    end
                 else
-                    nil
+                    ""
                 end
             end
 
@@ -25,7 +29,7 @@ module Mustafa
             # this method return only a post query parameter 
             # 
             ###
-            def value(key : String) : String
+            def [](key : String) : String
                 if @params.has_key?(key)
                     @params[key][0]
                 else
@@ -34,7 +38,7 @@ module Mustafa
             end
 
             ###
-            # this method is implemented for development envoriment
+            # this method is implement for develop envoriment
             ###
             def set_with_query(query : String)
                 @params = {} of String => Array(String)
@@ -46,12 +50,12 @@ module Mustafa
             end
         end
 
-        def self.put
-            yield PUT::INSTANCE
+        def self.post
+            yield POST::INSTANCE
         end
 
-        def self.put
-            PUT::INSTANCE
+        def self.post
+            POST::INSTANCE
         end
 
     end

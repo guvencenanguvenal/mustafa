@@ -1,65 +1,68 @@
 module Mustafa
-  module Helper
-    class Controller
-      INSTANCE = Controller.new
+  module Core
+    module Helper
+      class Controller
+        INSTANCE = Controller.new
 
-      #def load_action(cont_obj : Core::Controller, action_name : String, &block)
-      #  cont_obj.__actions[action_name] = block
-      #  puts "Action is registed. #{action_name}"
-      #end
+        property :__tmp_actions
+        property :__controller_names
+        property :__controllers
 
-      def controller_name?(path : String) : Bool
-        path_parse_array = [] of String
-
-        path_parse_array = path.split('/')
-
-        if path_parse_array.last(1).includes?('.') | path_parse_array.last(1).includes?(',')
-          return false
+        def initialize
+          @__controllers = {} of String => Mustafa::Core::Controller
+          @__controller_names = {} of Mustafa::Core::Controller.class => String
+          @__tmp_actions = {} of Mustafa::Core::Controller.class => Hash(String, Proc(Nil))
         end
+        
+        def controller_name?(path : String) : Bool
+          path_parse_array = [] of String
 
-        i = 0
-        while (i < path_parse_array.size)
-          if path_parse_array[i].includes?('.') | path_parse_array[i].includes?(',')
+          path_parse_array = path.split('/')
+
+          if path_parse_array.last(1).includes?('.') | path_parse_array.last(1).includes?(',')
             return false
           end
-          i += 1
-        end
 
-        return true
-      end
-
-      ## method_name = "index" parameter is deleted.
-      def load_controller(controller_name = "#{Mustafa::Config::MODULE_NAME}::#{Mustafa::Config::DEFAULT_CONTROLLER}") : Mustafa::Core::Controller
-        if Core.router.controller? controller_name
-          controller_obj = Core.router.load_controller controller_name
-
-          if controller_obj == Nil
-            puts "Controller is not found : #{controller_name}"
-          #else
-          #  controller_obj.run_action method_name
+          i = 0
+          while (i < path_parse_array.size)
+            if path_parse_array[i].includes?('.') | path_parse_array[i].includes?(',')
+              return false
+            end
+            i += 1
           end
 
-          controller_obj
-        else
-          controller_obj = Core.router.load_controller "Mustafa::Notfoundcontroller"
+          return true
+        end
 
-          if controller_obj == Nil
-            puts "Controller is not found : #{controller_name}"
-          #else
-          #  controller_obj.run_action method_name
+        ###
+        # Controller register and load methods
+        # 
+        # this method use polymorphysm
+        ###
+        def register_controller (name : String, controller_class : Mustafa::Core::Controller.class)
+          @__controller_names[controller_class] = name
+          @__tmp_actions[controller_class] = Hash(String, Proc(Nil)).new
+          puts "Controller is registed : #{name}"
+        end
+
+        def register_action (controller_class : Mustafa::Core::Controller.class, name : String, &block)
+          if !@__tmp_actions[controller_class].has_key?(name)
+              @__tmp_actions[controller_class][name] = block
+              puts "Action is registed. #{name}"
+          else
+              Mustafa::Library.log.add("Action is already exist.")
+              puts "Action is already exist."
           end
-
-          controller_obj
         end
       end
-    end
 
-    def self.controller
-      yield Controller::INSTANCE
-    end
+      def self.controller
+        yield Controller::INSTANCE
+      end
 
-    def self.controller
-      Controller::INSTANCE
+      def self.controller
+        Controller::INSTANCE
+      end
     end
   end
 end

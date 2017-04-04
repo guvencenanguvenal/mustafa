@@ -1,7 +1,7 @@
 module Mustafa
     module Input
-        class POST  
-            INSTANCE = POST.new
+        class DELETE  
+            INSTANCE = DELETE.new
 
             getter :params
 
@@ -13,11 +13,15 @@ module Mustafa
             # this method return post query parameters
             # 
             ###
-            def value_array(key : String) : Array(String)
+            def [](key : String, index : Int32) : String
                 if @params.has_key?(key)
-                    @params[key]
+                    if @params[key].size > index
+                        @params[key][index]
+                    else
+                        ""
+                    end
                 else
-                    nil
+                    ""
                 end
             end
 
@@ -25,14 +29,14 @@ module Mustafa
             # this method return only a post query parameter 
             # 
             ###
-            def value(key : String) : String
+            def [](key : String) : String
                 if @params.has_key?(key)
                     @params[key][0]
                 else
                     ""
                 end
             end
-
+            
             ###
             # this method is implement for develop envoriment
             ###
@@ -46,12 +50,12 @@ module Mustafa
             end
         end
 
-        def self.post
-            yield POST::INSTANCE
+        def self.delete
+            yield DELETE::INSTANCE
         end
 
-        def self.post
-            POST::INSTANCE
+        def self.delete
+            DELETE::INSTANCE
         end
 
     end

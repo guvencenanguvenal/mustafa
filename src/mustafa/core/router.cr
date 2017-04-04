@@ -1,3 +1,5 @@
+require "http"
+
 module Mustafa
   module Core
     ###
@@ -8,41 +10,28 @@ module Mustafa
     class Router
       INSTANCE = Router.new
 
-      def initialize
-        @__controllers = {} of String => Mustafa::Core::Controller
-        @__controller_names = {} of Mustafa::Core::Controller.class => String
-      end
-
       ###
       # Controller register and load methods
       # 
       # this method use polymorphysm
       ###
-      def register_controller (name : String, controller : Mustafa::Core::Controller)
-        @__controller_names[controller.class] = name
+      def route_controller(context : HTTP::Server::Context)
+        Helper.route.set_query_params context.request.method.to_s, context.request.query_params.to_s
+        path_parse_array = Helper.route.path_split context.request.path
+        Helper.route.set_url_params context.request.path
 
-        @__controllers[name] = controller
-        puts "Controller is registed : #{name}"
-      end
+        if Helper.controller.__controllers.has_key? path_parse_array[0]
+          controller_obj = Helper.controller.__controllers[path_parse_array[0]]
+          controller_obj.run_action path_parse_array[1]
 
-      ###
-      # this method for load controller with name
-      #
-      # Mustafa::Core.route.load_controller "Welcomecontroller"
-      ###
-      def load_controller (name : String) : Mustafa::Core::Controller
-        @__controllers[name]
-      end
-
-      ###
-      #overload to use on controller
-      ###
-      def load_controller (name : Mustafa::Core::Controller.class) : Mustafa::Core::Controller
-        @__controllers[@__controller_names[name]]
-      end
-
-      def controller? (name : String) : Bool
-        @__controllers.has_key?(name)
+          _view = controller_obj.load_view
+          context.response.content_type = _view.content_type
+          context.response.status_code = _view.status_code
+          context.response.print _view.to_s
+        else
+          context.response.status_code = 404
+          context.response.print "404 Controller Bulunamadı"
+        end
       end
     end
 

@@ -5,23 +5,23 @@ module Mustafa
             INSTANCE = Input.new
 
             def get(key : String) : String
-                Input.get.value(key)
+                Input.get[key]
             end
 
-            def get_array(key : String) : Array(String)
-                Input.get.value_array(key)
+            def get(key : String, index : Int32) : Array(String)
+                Input.get[key, index]
             end
 
             def post(key : String) : String
-                Input.post.value(key)
+                Input.post[key]
             end
 
             def post_array(key : String) : Array(String)
-                Input.post.value_array(key)
+                Input.post[key]
             end
 
             def params(index : Int32) : String
-                Input.params.value index
+                Input.params[index]
             end
         end
 

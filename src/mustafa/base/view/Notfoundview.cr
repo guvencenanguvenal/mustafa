@@ -3,10 +3,10 @@ require "ecr/macros"
 
 module Mustafa
   class Notfoundview < Core::View
-    def initialize
+    def load
 
     end
 
-    ECR.def_to_s "./lib/mustafa/base/Notfoundview.ecr"
+    ECR.def_to_s "./lib/mustafa/src/mustafa/base/view/Notfoundview.ecr"
   end
 end

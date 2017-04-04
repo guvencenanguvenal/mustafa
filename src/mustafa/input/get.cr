@@ -13,11 +13,15 @@ module Mustafa
             # this method return get query parameters
             # 
             ###
-            def value_array(key : String) : Array(String)
+            def [](key : String, index : Int32) : String
                 if @params.has_key?(key)
-                    @params[key]
+                    if @params[key].size > index
+                        @params[key][index]
+                    else
+                        ""
+                    end
                 else
-                    nil
+                    ""
                 end
             end
 
@@ -25,7 +29,7 @@ module Mustafa
             # this method return only a get query parameter 
             # 
             ###
-            def value(key : String) : String
+            def [](key : String) : String
                 if @params.has_key?(key)
                     @params[key][0]
                 else

@@ -2,9 +2,10 @@ require "smtp"
 
 module Mustafa
     module Library
-        class Mail
-            INSTANCE = Mail.new
-
+        class Mail < Mustafa::Core::Library
+            
+            init Mail
+            
             getter host : String
 
             ###
@@ -33,14 +34,6 @@ module Mustafa
                 client.send message
             end
 
-        end
-
-        def self.mail
-            yield Mail::INSTANCE
-        end
-
-        def self.mail
-            Mail::INSTANCE
         end
     end
 end

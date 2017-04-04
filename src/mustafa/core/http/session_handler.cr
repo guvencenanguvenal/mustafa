@@ -9,7 +9,7 @@ module Mustafa
                 include HTTP::Handler
 
                 def initialize(@session_key = Constant::SESSION_KEY, secret_key = Constant::SESSION_SECRET_KEY)
-                    @encoder = Helper::Encoder.new(secret_key)
+                    @encoder = Core::Helper::Encoder.new(secret_key)
                 end
 
                 def call(context)

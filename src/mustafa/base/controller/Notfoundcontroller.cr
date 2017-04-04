@@ -3,7 +3,7 @@ module Mustafa
     init Notfoundcontroller
 
     action "index" do
-      load_ecr Notfoundview, "Welcomecontroller"
+      Core.loader.view(self, Notfoundview)
     end
 
   end
