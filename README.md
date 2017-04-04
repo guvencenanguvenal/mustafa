@@ -129,11 +129,18 @@ module Yourproject
 end
 ```
 
-#Contribute
+# What's new with the new version:
+
+*Create your custom library
+*Select your model scope
+*New loader system
+*It's now faster than before
+
+# Contribute
 
 Please fork project [MustafaVC](https://github.com/guvencenanguvenal/mustafa/fork)
 
-#Thanks
+# Thanks
 
 Thanks [porras/session](https://github.com/porras/session) for session and encoder class.
 
