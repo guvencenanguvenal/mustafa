@@ -83,8 +83,8 @@ class Welcomecontroller < Core::Controller
 
   action "index" do
   
-    Core.loader.library([Customlib, Library::Crypto]) do |val|
-      val[Customlib].as(Customlib).hello
+    Core.loader.library([Customlib, Library::Crypto]) do |library|
+      library.hello
     end
   
     Core.loader.model(Welcomemodel) do |model|

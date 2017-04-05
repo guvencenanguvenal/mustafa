@@ -9,7 +9,7 @@ module Mustafa
             end
 
             ###
-            #
+            # load model and return
             ###
             def model(model_name : Model.class)
                 _model = Helper.model.load_model model_name
@@ -21,7 +21,7 @@ module Mustafa
             end
 
             ###
-            #
+            # load model with block
             ###
             def model(model_name : Model.class)
                 _model = Helper.model.load_model model_name
@@ -34,14 +34,14 @@ module Mustafa
             end
 
             ###
-            #
+            # load view and return
             ###
             def view(controller_class : Core::Controller.class, view_class : Core::View.class)
                 Helper.controller.__controllers[Helper.controller.__controller_names[controller_class]].register_view view_class
             end
 
             ###
-            #
+            # load view with block
             ###
             def view(controller_class : Core::Controller.class, view_class : Core::View.class)
                 Helper.controller.__controllers[Helper.controller.__controller_names[controller_class]].register_view view_class do |view|
@@ -50,14 +50,38 @@ module Mustafa
             end  
 
             ###
-            #
+            # load json view 
             ###
             def json(controller_class : Core::Controller.class, json_output : String)
                 Helper.controller.__controllers[Helper.controller.__controller_names[controller_class]].register_json json_output
-            end           
+            end    
 
             ###
-            #
+            # load single library and return
+            ###
+            def library(library_name : Core::Library.class)
+                _lib = Helper.library.load_library(library_name)
+                if _lib
+                    return _lib
+                else
+                    raise "Library is not found!"
+                end
+            end
+
+            ###
+            # load single library with block
+            ###
+            def library(library_name : Core::Library.class)
+                _lib = Helper.library.load_library(library_name)
+                if _lib
+                    yield _lib
+                else
+                    raise "Library is not found!"
+                end
+            end       
+
+            ###
+            # load multiple libraries and return with hash 
             ###
             def library(library_names : Array(Core::Library.class))
                 _libraries = Hash(Core::Library.class, Core::Library).new
@@ -74,7 +98,7 @@ module Mustafa
             end
 
             ###
-            #
+            # load multiple libraries with block and return with hash 
             ###
             def library(library_names : Array(Core::Library.class)) : Hash(Core::Library.class, Core::Library)
                 _libraries = Hash(Core::Library.class, Core::Library).new
