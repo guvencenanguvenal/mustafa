@@ -83,7 +83,7 @@ class Welcomecontroller < Core::Controller
 
   action "index" do
   
-    Core.loader.library([Customlib, Library::Crypto]) do |library|
+    Core.loader.library(Customlib) do |library|
       library.hello
     end
   
