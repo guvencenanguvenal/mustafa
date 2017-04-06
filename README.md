@@ -16,7 +16,7 @@ For more information, you can see [Mustafa Wiki](https://github.com/guvencenangu
 
 Add this to your application's `shards.yml`
 
-```
+```yaml
 dependencies:
   mustafa:
     github: guvencenanguvenal/mustafa
@@ -37,32 +37,38 @@ call controller which name is Welcome and run action(method) which name is "hell
 
 call controller which name is Welcome and run action(method) which name is "hello" and.. 
 
-```
+```crystal
 Input.params[0] => "param1"
 Input.params[1] => "param2"
 ```
+
 >**Note:** params is not get or post
 
 # Configuration :mag_right:
 
-Configuration file is config.cr on src/mustafa/config/config.cr
-```
+Configuration file is config.cr on `src/mustafa/config/config.cr`
+
+```crystal
 DEFAULT_CONTROLLER = "your default controller" #this controller is default which response http://localhost/ 
 MODULE_NAME = "your module name"
 VIEW_PATH = "src/your module name/view" # ./src/mustafa/view/ecr_file.ecr
 ```
+
 and choose your localhost
+
 ```
 LOCALHOST_ADDRESS = "0.0.0.0"
 ```
+
 # Super Simple :checkered_flag:
 
 ## Model
 
 Model name must be capitalized case (first letter is upper, other letters is lower)
 
-Welcomemodel.cr
-```
+`Welcomemodel.cr`
+
+```crystal
 class Welcomemodel < Core::Model
   init Welcomemodel, Core::Model::Scope::Singleton
 
@@ -76,8 +82,9 @@ end
 
 Controller name must be capitalized case (first letter is upper, other letters is lower)
 
-Welcomecontroller.cr
-```
+`Welcomecontroller.cr`
+
+```crystal
 class Welcomecontroller < Core::Controller
   init Welcomecontroller
 
@@ -100,8 +107,9 @@ end
 
 View has a class and an ECR File
 
-Welcomeview.cr
-```
+`Welcomeview.cr`
+
+```crystal
 class Welcomeview < Core::View
   init "Welcome.ecr"
   
@@ -112,15 +120,18 @@ class Welcomeview < Core::View
   end
 end
 ```
-Welcome.ecr
-```
+
+`Welcome.ecr`
+
+```crystal
 Selam, <%= @view_params["key"] %>!      # value
 ```
 
 ## Run, go go go
 
-Yourproject.cr
-```
+`Yourproject.cr`
+
+```crystal
 require "mustafa"
 #And require your controller, view and model files
 
