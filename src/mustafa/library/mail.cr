@@ -4,7 +4,7 @@ module Mustafa
     module Library
         class Mail < Mustafa::Core::Library
             
-            init Mail
+            init Mail, Core::Library::Scope::Singleton
             
             getter host : String
 
@@ -19,6 +19,19 @@ module Mustafa
 
             def initialize()
                 @host = "localhost"
+            end
+
+            def send(host : String, from : String, from_name : String, to : String, to_name : String, subject : String, body : String)
+                client = SMTP::Client.new(host)
+
+                message = SMTP::Message.new()
+
+                message.from = SMTP::Address.new(email = from, name = from_name)
+                message.to << SMTP::Address.new(email = to, name = to_name)
+                message.subject = subject
+                message.body = body
+
+                client.send message
             end
 
             def send(from : String, from_name : String, to : String, to_name : String, subject : String, body : String)

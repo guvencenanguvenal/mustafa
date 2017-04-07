@@ -1,8 +1,7 @@
 module Mustafa
     module Library
-        class Session
-
-            INSTANCE = Session.new
+        class Session < Core::Library
+            init Session, Core::Library::Scope::Singleton
 
             property session_data : Hash(String, String)
 
@@ -18,14 +17,5 @@ module Mustafa
                 @session_data[key] = value
             end
         end
-
-        def self.session
-            yield Session::INSTANCE
-        end
-
-        def self.session
-            Session::INSTANCE
-        end
-
     end
 end

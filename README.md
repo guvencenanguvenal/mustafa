@@ -91,11 +91,11 @@ class Welcomecontroller < Core::Controller
   action "index" do
   
     Core.loader.library(Customlib) do |library|
-      library.hello
+      library.as(Customlib).foo
     end
   
     Core.loader.model(Welcomemodel) do |model|
-      model.deneme
+      model.as(Welcomemodel).hello
     end
   
     Core.loader.view(self, Welcomeview)

@@ -16,6 +16,7 @@ module Mustafa
                 if _model
                     return _model
                 else
+                    Mustafa::Library.log.add("Model is not found! #{model_name}", Mustafa::LogType::Application.value)
                     raise "Model is not found!"
                 end
             end
@@ -29,6 +30,7 @@ module Mustafa
                 if _model
                     yield _model
                 else
+                    Mustafa::Library.log.add("Model is not found! #{model_name}", Mustafa::LogType::Application.value)
                     raise "Model is not found!"
                 end
             end
@@ -64,6 +66,7 @@ module Mustafa
                 if _lib
                     return _lib
                 else
+                    Mustafa::Library.log.add("Model is not found! #{library_name}", Mustafa::LogType::Application.value)
                     raise "Library is not found!"
                 end
             end
@@ -76,6 +79,7 @@ module Mustafa
                 if _lib
                     yield _lib
                 else
+                    Mustafa::Library.log.add("Model is not found! #{library_name}", Mustafa::LogType::Application.value)
                     raise "Library is not found!"
                 end
             end       
