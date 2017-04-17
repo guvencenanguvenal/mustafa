@@ -8,10 +8,24 @@ module Mustafa
             getter view_params = {} of String => String
             getter view_arrays = {} of String => Array(String)
             getter view_hashes = {} of String => Hash(String, String)
-            
+            getter view_controls = {} of String => Core::Control
+            getter script = ""
+            getter css = ""
+
             property content_type = "text/html"
             property content_length = 0
             property status_code = 200
+
+            ###
+            #
+            ###
+            def script=(val : String)
+                @script = @script + val
+            end
+
+            def css=(val : String)
+                @css = @css + val
+            end
 
             ###
             # this method is abstract. it use for initialize view s values
@@ -41,6 +55,23 @@ module Mustafa
             end
 
             ###
+            #
+            ###
+            def add_user_control(control_name : String, control_class : Core::Control.class)
+                @view_controls[control_name] = control_class.new
+                @script = @script + "\n\n" + @view_controls[control_name].script
+                yield @view_controls[control_name]
+            end
+
+            ###
+            #
+            ###
+            def add_user_control(control_name : String, control_class : Core::Control.class)
+                @view_controls[control_name] = control_class.new
+                @script = @script + "\n\n" + @view_controls[control_name].script
+            end
+
+            ###
             # This macro is for initialize ECR View class
             #
             # init "Welcomeview.ecr"
@@ -52,20 +83,6 @@ module Mustafa
 
                 ECR.def_to_s "./#{Config::VIEW_PATH.id}/#{{{filename}}}"
             end
-
-            ###
-            # this macro create base view class
-            #
-            ###
-            macro init_base_view(name, filename)
-                class {{name}} < Core::View
-                    def load 
-                    end
-
-                    ECR.def_to_s {{filename}}
-                end
-            end
-
         end
     end
 end

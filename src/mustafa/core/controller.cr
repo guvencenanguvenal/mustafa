@@ -25,6 +25,27 @@ module Mustafa
                 end
             end
 
+            ###
+            # this macro registered controller on system and create view for following controller
+            #
+            #   class Welcomecontroller < Controller
+            #       init_with_view Welcomecontroller, "Welcome.ecr"
+            ###
+            macro init_with_view(controller_name, filename)
+                class {{controller_name.id}}view < Core::View
+                    def load 
+                    end
+
+                    ECR.def_to_s "./#{Config::VIEW_PATH.id}/#{{{filename}}}"
+                end
+
+                Core::Helper.controller.register_controller "#{{{controller_name}}}", {{controller_name.id}}
+
+                def initialize(actions : Hash(String, Proc(Nil)))
+                    super(actions)
+                end
+            end
+
             macro action (name, &block)
                 Core::Helper.controller.register_action(self, {{name}}) {{block}}
             end
@@ -82,6 +103,19 @@ module Mustafa
             def load_view : Mustafa::Core::View
                 @view.load
                 @view
+            end
+
+            ###
+            # this macro create base view class
+            #
+            ###
+            macro init_base_view(name, filename)
+                class {{name.id}} < Core::View
+                    def load 
+                    end
+
+                    ECR.def_to_s "./#{Config::VIEW_PATH.id}/#{{{filename}}}"
+                end
             end
 
         end
