@@ -4,6 +4,10 @@
 
 Mustafa is MVC Framework for Crystal
 
+Please contribute project. [MustafaVC Fork](https://github.com/guvencenanguvenal/mustafa/fork)
+
+[TODO](https://github.com/guvencenanguvenal/mustafa#todo)
+
 # Getting Started :sunglasses:
 
 Download [Visual Studio Code](https://code.visualstudio.com/download) and add [Crystal](https://github.com/g3ortega/vscode-crystal) extension for faster coding with [snippets](https://github.com/guvencenanguvenal/mustafa/blob/master/snippets.md).
@@ -151,7 +155,7 @@ end
 
 ```
 [ ] Library improve
-[ ] Database Library
+[ ] Database Library improve
 [ ] Oracle Driver implement
 [ ] add UserControl
 ```
