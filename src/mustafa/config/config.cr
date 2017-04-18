@@ -6,8 +6,8 @@ module Mustafa
         CONTROL_PATH = "src/mustafa/view"
         LOG_PATH = "src/#{Config::MODULE_NAME.downcase}/logfiles"
 
-        SYSTEM_LOG_PATH = "lib/mustafa/src/mustafa/logfiles"
-
+        SYSTEM_LOG_PATH = "lib/mustafa/logfiles"
+        
         LOCALHOST_ADDRESS = "127.0.0.1"
     end
 end

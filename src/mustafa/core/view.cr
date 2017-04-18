@@ -72,6 +72,16 @@ module Mustafa
             end
 
             ###
+            #
+            ###
+            def add_user_controls(controls : Hash(String, Core::Control.class))
+                controls.each do |key, value|
+                    @view_controls[key] = value.new
+                    @script = @script + "\n\n" + @view_controls[control_name].script
+                end
+            end
+
+            ###
             # This macro is for initialize ECR View class
             #
             # init "Welcomeview.ecr"
