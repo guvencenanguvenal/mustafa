@@ -48,7 +48,7 @@ Input.params[1] => "param2"
 
 >**Note:** params is not get or post
 
-# Configuration :mag_right:
+# Configuration or Use Template :mag_right:
 
 Configuration file is config.cr on `src/mustafa/config/config.cr`
 
@@ -63,6 +63,10 @@ and choose your localhost
 ```
 LOCALHOST_ADDRESS = "0.0.0.0"
 ```
+
+or
+
+You can use [Mustafa Template](https://github.com/guvencenanguvenal/mustafatemplate) to faster start.
 
 # Super Simple :checkered_flag:
 
