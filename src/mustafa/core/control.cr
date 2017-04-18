@@ -10,10 +10,17 @@ module Mustafa
             #
             # init "Welcomecontrol.ecr"
             ###
-            macro init(filename, props, script = "")
+            macro init(filename, props, script = "", props_default = {css: ""})
                 {% for name, type in props %}
                 property {{name.id}} : {{type.id}}?
                 {% end %}
+
+                def initialize
+                    @script = {{script}}
+                    {% for name, value in props_default %}
+                    @{{name.id}} = {{value}}
+                    {% end %}
+                end
 
                 def load(
                 {% for name, type in props %}
@@ -29,17 +36,13 @@ module Mustafa
                 def to_s(__io__)
                     ECR.embed "./#{Config::CONTROL_PATH.id}/#{{{filename}}}", "__io__"
                 end
-
-                def initialize
-                    @script = {{script}}
-                end
             end
 
             ###
             #
             ###
             property script = ""
-
+            property css = ""
 
         end
     end

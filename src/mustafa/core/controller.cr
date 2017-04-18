@@ -29,9 +29,9 @@ module Mustafa
             # this macro registered controller on system and create view for following controller
             #
             #   class Welcomecontroller < Controller
-            #       init_with_view Welcomecontroller, "Welcome.ecr"
+            #       init Welcomecontroller, "Welcome.ecr"
             ###
-            macro init_with_view(controller_name, filename)
+            macro init(controller_name, filename)
                 class {{controller_name.id}}view < Core::View
                     def load 
                     end
